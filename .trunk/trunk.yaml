@@ -1,0 +1,41 @@
+version: 0.1
+cli:
+  version: 1.10.0
+
+lint:
+  enabled:
+    - git-diff-check
+    - yamllint@1.32.0
+    - shellcheck@0.9.0
+    - shfmt@3.5.0
+    - goimports@0.1.10
+    - actionlint@1.6.25
+    - semgrep@1.27.0
+    - prettier@2.8.8
+    - gitleaks@8.17.0
+    - gofmt@1.19.3
+    - golangci-lint@1.53.3
+    - hadolint@2.12.0
+    - buf-breaking@1.21.0
+    - buf-lint@1.21.0
+
+  ignore:
+    - linters: [golangci-lint]
+      paths:
+        - tools
+
+    - linters: [goimports]
+      paths:
+        - "**/wire_gen.go"
+runtimes:
+  enabled:
+    - go@1.19.5
+    - node@18.12.1
+    - python@3.10.8
+actions:
+  enabled:
+    - buf-gen
+    - go-mod-tidy
+    - trunk-upgrade-available
+    - trunk-check-pre-push
+    - trunk-fmt-pre-commit
