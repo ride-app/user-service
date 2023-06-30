@@ -7,17 +7,27 @@
 package di
 
 import (
-	"github.com/ride-app/entity-service/repositories/entity"
-	"github.com/ride-app/entity-service/service"
+	"github.com/ride-app/user-service/repositories/saved-location"
+	"github.com/ride-app/user-service/repositories/user"
+	"github.com/ride-app/user-service/service"
+	"github.com/ride-app/user-service/third-party"
 )
 
 // Injectors from wire.go:
 
-func InitializeService() (*service.EntityServiceServer, error) {
-	someImpl, err := entityrepository.NewSomeEntityRepository()
+func InitializeService() (*service.UserServiceServer, error) {
+	app, err := thirdparty.NewFirebaseApp()
 	if err != nil {
 		return nil, err
 	}
-	entityServiceServer := service.New(someImpl)
-	return entityServiceServer, nil
+	firebaseImpl, err := userrepository.NewFirebaseUserRepository(app)
+	if err != nil {
+		return nil, err
+	}
+	savedlocationrepositoryFirebaseImpl, err := savedlocationrepository.NewFirebaseSavedLocationRepository(app)
+	if err != nil {
+		return nil, err
+	}
+	userServiceServer := service.New(firebaseImpl, savedlocationrepositoryFirebaseImpl)
+	return userServiceServer, nil
 }

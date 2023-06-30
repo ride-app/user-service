@@ -4,17 +4,25 @@ package di
 
 import (
 	"github.com/google/wire"
-	entityrepository "github.com/ride-app/entity-service/repositories/entity"
-	"github.com/ride-app/entity-service/service"
+	savedlocationrepository "github.com/ride-app/user-service/repositories/saved-location"
+	userrepository "github.com/ride-app/user-service/repositories/user"
+	"github.com/ride-app/user-service/service"
+	thirdparty "github.com/ride-app/user-service/third-party"
 )
 
-func InitializeService() (*service.EntityServiceServer, error) {
+func InitializeService() (*service.UserServiceServer, error) {
 	panic(
 		wire.Build(
-			entityrepository.NewSomeEntityRepository,
+			thirdparty.NewFirebaseApp,
+			userrepository.NewFirebaseUserRepository,
+			savedlocationrepository.NewFirebaseSavedLocationRepository,
 			wire.Bind(
-				new(entityrepository.EntityRepository),
-				new(*entityrepository.SomeImpl),
+				new(userrepository.UserRepository),
+				new(*userrepository.FirebaseImpl),
+			),
+			wire.Bind(
+				new(savedlocationrepository.SavedLocationRepository),
+				new(*savedlocationrepository.FirebaseImpl),
 			),
 			service.New,
 		),

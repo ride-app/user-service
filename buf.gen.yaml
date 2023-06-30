@@ -2,7 +2,7 @@ version: v1
 managed:
   enabled: true
   go_package_prefix:
-    default: github.com/ride-app/entity-service/api/gen
+    default: github.com/ride-app/user-service/api/gen
     except:
       - buf.build/googleapis/googleapis
     override:

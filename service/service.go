@@ -1,17 +1,21 @@
 package service
 
 import (
-	er "github.com/ride-app/entity-service/repositories/entity"
+	slr "github.com/ride-app/user-service/repositories/saved-location"
+	er "github.com/ride-app/user-service/repositories/user"
 )
 
-type EntityServiceServer struct {
-	entityRepository er.EntityRepository
+type UserServiceServer struct {
+	userRepository          er.UserRepository
+	savedlocationrepository slr.SavedLocationRepository
 }
 
 func New(
-	entityRepository er.EntityRepository,
-) *EntityServiceServer {
-	return &EntityServiceServer{
-		entityRepository: entityRepository,
+	userRepository er.UserRepository,
+	savedlocationrepository slr.SavedLocationRepository,
+) *UserServiceServer {
+	return &UserServiceServer{
+		userRepository:          userRepository,
+		savedlocationrepository: savedlocationrepository,
 	}
 }

@@ -1,0 +1,191 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+import "google/type/latlng.proto";
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+package ride.user.v1alpha1;
+
+// Generated according to https://cloud.google.com/apis/design/standard_methods
+service UserService {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/{name=users/*}"
+    };
+  }
+
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+    option (google.api.http) = {
+      patch: "/v1alpha1/{user.name=users/*}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {
+    option (google.api.http) = {
+      delete: "/v1alpha1/{name=users/*}"
+    };
+  }
+
+  rpc CreateSavedLocation(CreateSavedLocationRequest) returns (CreateSavedLocationResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/{saved_location.name=users/*/savedLocations/*}"
+      body: "*"
+    };
+  }
+
+  rpc ListSavedLocations(ListSavedLocationsRequest) returns (ListSavedLocationsResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/{parent=users/*}/savedLocations"
+    };
+  }
+
+  rpc GetSavedLocation(GetSavedLocationRequest) returns (GetSavedLocationResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/{name=users/*/savedLocations/*}"
+    };
+  }
+
+  rpc UpdateSavedLocation(UpdateSavedLocationRequest) returns (UpdateSavedLocationResponse) {
+    option (google.api.http) = {
+      patch: "/v1alpha1/{name=users/*/savedLocations/*}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteSavedLocation(DeleteSavedLocationRequest) returns (DeleteSavedLocationResponse) {
+    option (google.api.http) = {
+      delete: "/v1alpha1/{name=users/*/savedLocations/*}"
+    };
+  }
+}
+
+message User {
+  // Relative resource name of User, for example: "users/user1"
+  string name = 1 [(validate.rules).string.pattern = "^users/[A-Za-z0-9_-]+$"];
+  
+  // The User's full name.
+  string display_name = 2;
+
+  // The User's phone number.
+  string phone_number = 3;
+
+  // The User's email address.
+  optional string email = 4 [(validate.rules).string.email = true];
+
+  // The User's photo URL.
+  string photo_url = 5;
+  
+  // Output only. Timestamp when the User was created.
+  google.protobuf.Timestamp create_time = 6;
+
+  // Output only. Timestamp when the User was last updated.
+  google.protobuf.Timestamp update_time = 7;
+}
+
+message GetUserRequest {
+  // Relative resource name of User, for example: "users/user1"
+  string name = 1;
+}
+
+message GetUserResponse {
+  // The field name should match the noun "User" in the method name.
+  User user = 1;
+}
+
+message UpdateUserRequest {
+  // The User resource which replaces the resource on the server.
+  User user = 1;
+
+  // The update mask applies to the resource. For the `FieldMask` definition,
+  // see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+message UpdateUserResponse {
+  // The field name should match the noun "User" in the method name.
+  User user = 1;
+}
+
+message DeleteUserRequest {
+  // Relative resource name of User, for example: "users/user1"
+  string name = 1;
+}
+
+message DeleteUserResponse {
+}
+
+message SavedLocation {
+  // Relative resource name of SavedLocation, for example: "users/user1/savedLocations/home"
+  string name = 1 [(validate.rules).string.pattern = "^users/[A-Za-z0-9_-]+/savedLocations/[A-Za-z0-9_-]+$"];
+
+  // The location of the SavedLocation.
+  google.type.LatLng location = 2;
+
+  // The address of the SavedLocation.
+  string address = 3;
+
+  // The display name of the SavedLocation
+  string display_name = 4;
+  
+  // Output only. Timestamp when the SavedLocation was created.
+  google.protobuf.Timestamp create_time = 5;
+
+  // Output only. Timestamp when the SavedLocation was last updated.
+  google.protobuf.Timestamp update_time = 6;
+}
+
+message CreateSavedLocationRequest {
+  // The SavedLocation resource to create.
+  // The field name should match the Noun in the method name.
+  SavedLocation saved_location = 1;
+}
+
+message CreateSavedLocationResponse {
+  // The field name should match the noun "SavedLocation" in the method name.
+  SavedLocation saved_location = 1;
+}
+
+message ListSavedLocationsRequest {
+  // Relative resource name of parent User, for example: "users/user1"
+  string parent = 1;
+}
+
+message ListSavedLocationsResponse {
+  // The field name should match the noun "SavedLocation" in the method name.
+  repeated SavedLocation saved_locations = 1;
+}
+
+message GetSavedLocationRequest {
+  // Relative resource name of SavedLocation, for example: "users/user1/savedLocations/savedLocation1"
+  string name = 1;
+}
+
+message GetSavedLocationResponse {
+  // The field name should match the noun "SavedLocation" in the method name.
+  SavedLocation saved_location = 1;
+}
+
+message UpdateSavedLocationRequest {
+  // The SavedLocation resource which replaces the resource on the server.
+  SavedLocation saved_location = 1;
+
+  // The update mask applies to the resource. For the `FieldMask` definition,
+  // see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+message UpdateSavedLocationResponse {
+  // The field name should match the noun "SavedLocation" in the method name.
+  SavedLocation saved_location = 1;
+}
+
+message DeleteSavedLocationRequest {
+  // Relative resource name of SavedLocation, for example: "users/user1/savedLocations/savedLocation1"
+  string name = 1;
+}
+
+message DeleteSavedLocationResponse {
+}
