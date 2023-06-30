@@ -45,7 +45,7 @@ jobs:
       contents: read
       id-token: write
     env:
-      SERVICE_NAME: driver-service
+      SERVICE_NAME: user-service
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
