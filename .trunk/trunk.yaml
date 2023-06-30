@@ -51,3 +51,6 @@ plugins:
     - id: trunk
       ref: v0.0.21
       uri: https://github.com/trunk-io/plugins
+merge:
+  required_statuses:
+    - Unit Test

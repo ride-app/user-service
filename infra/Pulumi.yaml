@@ -1,0 +1,6 @@
+name: user-service
+runtime: nodejs
+description: A minimal Google Cloud TypeScript Pulumi program
+config:
+  gcp:region: asia-south2
+  service:name: user-service
