@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/ilyakaznacheev/cleanenv"
-	"github.com/ride-app/user-service/api/gen/ride/user/v1alpha1/userv1alpha1connect"
+	"github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1/riderv1alpha1connect"
 	"github.com/ride-app/user-service/config"
 	"github.com/ride-app/user-service/di"
 	"golang.org/x/net/http2"
@@ -56,7 +56,7 @@ func main() {
 
 	log.Info("Service Initialized")
 
-	path, handler := userv1alpha1connect.NewUserServiceHandler(service)
+	path, handler := riderv1alpha1connect.NewUserServiceHandler(service)
 	mux := http.NewServeMux()
 	mux.Handle(path, handler)
 

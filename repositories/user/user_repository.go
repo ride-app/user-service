@@ -9,7 +9,7 @@ import (
 
 	firebase "firebase.google.com/go"
 	"firebase.google.com/go/auth"
-	pb "github.com/ride-app/user-service/api/gen/ride/user/v1alpha1"
+	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
 )
 
 type UserRepository interface {

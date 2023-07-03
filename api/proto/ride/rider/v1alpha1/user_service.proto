@@ -6,7 +6,7 @@ import "google/type/latlng.proto";
 import "google/api/annotations.proto";
 import "validate/validate.proto";
 
-package ride.user.v1alpha1;
+package ride.rider.v1alpha1;
 
 // Generated according to https://cloud.google.com/apis/design/standard_methods
 service UserService {

@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/bufbuild/connect-go"
-	pb "github.com/ride-app/user-service/api/gen/ride/user/v1alpha1"
+	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
 )
 
 func (service *UserServiceServer) ListSavedLocations(ctx context.Context,

@@ -9,7 +9,7 @@ import (
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
-	pb "github.com/ride-app/user-service/api/gen/ride/user/v1alpha1"
+	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
 	"google.golang.org/genproto/googleapis/type/latlng"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )

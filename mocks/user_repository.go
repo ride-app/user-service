@@ -10,7 +10,7 @@ import (
 	time "time"
 
 	gomock "github.com/golang/mock/gomock"
-	userv1alpha1 "github.com/ride-app/user-service/api/gen/ride/user/v1alpha1"
+	riderv1alpha1 "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
 )
 
 // MockUserRepository is a mock of UserRepository interface.
@@ -52,10 +52,10 @@ func (mr *MockUserRepositoryMockRecorder) DeleteUser(arg0, arg1 interface{}) *go
 }
 
 // GetUser mocks base method.
-func (m *MockUserRepository) GetUser(arg0 context.Context, arg1 string) (*userv1alpha1.User, error) {
+func (m *MockUserRepository) GetUser(arg0 context.Context, arg1 string) (*riderv1alpha1.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUser", arg0, arg1)
-	ret0, _ := ret[0].(*userv1alpha1.User)
+	ret0, _ := ret[0].(*riderv1alpha1.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -67,7 +67,7 @@ func (mr *MockUserRepositoryMockRecorder) GetUser(arg0, arg1 interface{}) *gomoc
 }
 
 // UpdateUser mocks base method.
-func (m *MockUserRepository) UpdateUser(arg0 context.Context, arg1 *userv1alpha1.User) (*time.Time, error) {
+func (m *MockUserRepository) UpdateUser(arg0 context.Context, arg1 *riderv1alpha1.User) (*time.Time, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateUser", arg0, arg1)
 	ret0, _ := ret[0].(*time.Time)

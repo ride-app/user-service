@@ -10,7 +10,7 @@ import (
 	time "time"
 
 	gomock "github.com/golang/mock/gomock"
-	userv1alpha1 "github.com/ride-app/user-service/api/gen/ride/user/v1alpha1"
+	riderv1alpha1 "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
 )
 
 // MockSavedLocationRepository is a mock of SavedLocationRepository interface.
@@ -37,7 +37,7 @@ func (m *MockSavedLocationRepository) EXPECT() *MockSavedLocationRepositoryMockR
 }
 
 // CreateSavedLocation mocks base method.
-func (m *MockSavedLocationRepository) CreateSavedLocation(arg0 context.Context, arg1 *userv1alpha1.SavedLocation) (*time.Time, error) {
+func (m *MockSavedLocationRepository) CreateSavedLocation(arg0 context.Context, arg1 *riderv1alpha1.SavedLocation) (*time.Time, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateSavedLocation", arg0, arg1)
 	ret0, _ := ret[0].(*time.Time)
@@ -67,10 +67,10 @@ func (mr *MockSavedLocationRepositoryMockRecorder) DeleteSavedLocation(arg0, arg
 }
 
 // GetSavedLocation mocks base method.
-func (m *MockSavedLocationRepository) GetSavedLocation(arg0 context.Context, arg1, arg2 string) (*userv1alpha1.SavedLocation, error) {
+func (m *MockSavedLocationRepository) GetSavedLocation(arg0 context.Context, arg1, arg2 string) (*riderv1alpha1.SavedLocation, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetSavedLocation", arg0, arg1, arg2)
-	ret0, _ := ret[0].(*userv1alpha1.SavedLocation)
+	ret0, _ := ret[0].(*riderv1alpha1.SavedLocation)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -82,10 +82,10 @@ func (mr *MockSavedLocationRepositoryMockRecorder) GetSavedLocation(arg0, arg1, 
 }
 
 // GetSavedLocations mocks base method.
-func (m *MockSavedLocationRepository) GetSavedLocations(arg0 context.Context, arg1 string) ([]*userv1alpha1.SavedLocation, error) {
+func (m *MockSavedLocationRepository) GetSavedLocations(arg0 context.Context, arg1 string) ([]*riderv1alpha1.SavedLocation, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetSavedLocations", arg0, arg1)
-	ret0, _ := ret[0].([]*userv1alpha1.SavedLocation)
+	ret0, _ := ret[0].([]*riderv1alpha1.SavedLocation)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -97,7 +97,7 @@ func (mr *MockSavedLocationRepositoryMockRecorder) GetSavedLocations(arg0, arg1 
 }
 
 // UpdateSavedLocation mocks base method.
-func (m *MockSavedLocationRepository) UpdateSavedLocation(arg0 context.Context, arg1 *userv1alpha1.SavedLocation) (*time.Time, error) {
+func (m *MockSavedLocationRepository) UpdateSavedLocation(arg0 context.Context, arg1 *riderv1alpha1.SavedLocation) (*time.Time, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateSavedLocation", arg0, arg1)
 	ret0, _ := ret[0].(*time.Time)
