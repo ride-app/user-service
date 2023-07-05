@@ -96,16 +96,19 @@ message GetUserResponse {
 }
 
 message UpdateUserRequest {
-  // The User resource which replaces the resource on the server.
-  User user = 1;
+  // A unique request ID for server to detect duplicated requests for idempotency.
+  string request_id = 1;
+
+  // The User to be updated. Client **must** set User.name.
+  User user = 2;
 
   // The update mask applies to the resource. For the `FieldMask` definition,
   // see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
-  google.protobuf.FieldMask update_mask = 2;
+  google.protobuf.FieldMask update_mask = 3;
 }
 
 message UpdateUserResponse {
-  // The field name should match the noun "User" in the method name.
+  // The updated User.
   User user = 1;
 }
 
@@ -169,16 +172,19 @@ message GetSavedLocationResponse {
 }
 
 message UpdateSavedLocationRequest {
-  // The SavedLocation resource which replaces the resource on the server.
-  SavedLocation saved_location = 1;
+  // A unique request ID for server to detect duplicated requests for idempotency.
+  string request_id = 1;
+
+  // The SavedLocation to be updated. Client **must** set SavedLocation.name.
+  SavedLocation saved_location = 2;
 
   // The update mask applies to the resource. For the `FieldMask` definition,
   // see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
-  google.protobuf.FieldMask update_mask = 2;
+  google.protobuf.FieldMask update_mask = 3;
 }
 
 message UpdateSavedLocationResponse {
-  // The field name should match the noun "SavedLocation" in the method name.
+  // The updated SavedLocation.
   SavedLocation saved_location = 1;
 }
 
