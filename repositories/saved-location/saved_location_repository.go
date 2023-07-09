@@ -92,11 +92,11 @@ func (r *FirebaseImpl) GetSavedLocations(ctx context.Context, uid string) ([]*pb
 		return nil, err
 	}
 
-	if len(docs) == 0 {
-		return nil, nil
-	}
-
 	var savedlocations []*pb.SavedLocation
+
+	if len(docs) == 0 {
+		return savedlocations, nil
+	}
 
 	for _, doc := range docs {
 		savedlocation := &pb.SavedLocation{
