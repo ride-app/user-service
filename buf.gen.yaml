@@ -6,7 +6,7 @@ managed:
     except:
       - buf.build/googleapis/googleapis
     override:
-      buf.build/envoyproxy/protoc-gen-validate: go.buf.build/grpc/go/envoyproxy/protoc-gen-validate
+      buf.build/envoyproxy/protoc-gen-validate: buf.build/gen/go/envoyproxy/protoc-gen-validate/protocolbuffers/go
 plugins:
   - plugin: buf.build/protocolbuffers/go
     out: api/gen
