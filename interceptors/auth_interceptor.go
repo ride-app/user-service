@@ -55,7 +55,7 @@ func NewAuthInterceptor(ctx context.Context) (*connect.UnaryInterceptorFunc, err
 			if err != nil {
 				return nil, connect.NewError(
 					connect.CodeUnauthenticated,
-					errors.New("invalid token"),
+					errors.New(err.Error()),
 				)
 			}
 
