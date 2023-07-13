@@ -46,12 +46,17 @@ func NewAuthInterceptor(ctx context.Context) (*connect.UnaryInterceptorFunc, err
 			if req.Header().Get("authorization")[:7] != "Bearer " {
 				return nil, connect.NewError(
 					connect.CodeUnauthenticated,
+					errors.New("invalid token format"),
+				)
+			}
+			token, err := jwt.Parse(req.Header().Get("authorization")[7:], jwks.Keyfunc)
+
+			if !token.Valid {
+				return nil, connect.NewError(
+					connect.CodeUnauthenticated,
 					errors.New("invalid token"),
 				)
 			}
-			token := req.Header().Get("authorization")[7:]
-
-			_, err := jwt.Parse(token, jwks.Keyfunc)
 
 			if err != nil {
 				return nil, connect.NewError(
