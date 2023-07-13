@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"errors"
+	"strings"
 
 	"github.com/bufbuild/connect-go"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
@@ -19,7 +20,7 @@ func (service *UserServiceServer) GetUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("name cannot be empty"))
 	}
 
-	user, err := service.userRepository.GetUser(ctx, req.Msg.Name)
+	user, err := service.userRepository.GetUser(ctx, strings.Split(req.Msg.Name, "/")[1])
 
 	if err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)
