@@ -3,12 +3,12 @@ package interceptors
 import (
 	"context"
 	"errors"
-	"log"
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/bufbuild/connect-go"
 	"github.com/golang-jwt/jwt/v5"
+	log "github.com/sirupsen/logrus"
 )
 
 func NewAuthInterceptor(ctx context.Context) (*connect.UnaryInterceptorFunc, error) {
@@ -17,7 +17,7 @@ func NewAuthInterceptor(ctx context.Context) (*connect.UnaryInterceptorFunc, err
 	options := keyfunc.Options{
 		Ctx: ctx,
 		RefreshErrorHandler: func(err error) {
-			log.Printf("There was an error with the jwt.Keyfunc\nError: %s", err.Error())
+			log.Fatalf("There was an error with the jwt.Keyfunc\nError: %s", err.Error())
 		},
 		RefreshInterval:   time.Hour,
 		RefreshRateLimit:  time.Minute * 5,
@@ -50,8 +50,6 @@ func NewAuthInterceptor(ctx context.Context) (*connect.UnaryInterceptorFunc, err
 				)
 			}
 			token := req.Header().Get("authorization")[7:]
-
-			log.Printf("Token: %s", token)
 
 			_, err := jwt.Parse(token, jwks.Keyfunc)
 
