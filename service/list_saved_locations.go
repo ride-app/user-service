@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"strings"
 
 	"github.com/bufbuild/connect-go"
@@ -15,7 +16,13 @@ func (service *UserServiceServer) ListSavedLocations(ctx context.Context,
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
-	locations, err := service.savedlocationrepository.GetSavedLocations(ctx, strings.Split(req.Msg.Parent, "/")[1])
+	uid := strings.Split(req.Msg.Parent, "/")[1]
+
+	if uid != req.Header().Get("uid") {
+		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
+	}
+
+	locations, err := service.savedlocationrepository.GetSavedLocations(ctx, uid)
 
 	if err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)

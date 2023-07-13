@@ -14,11 +14,13 @@ func (service *UserServiceServer) DeleteUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
-	if req.Msg.Name == "" {
-		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("name cannot be empty"))
+	uid := req.Header().Get("uid")
+
+	if uid != req.Msg.Name {
+		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	if _, err := service.userRepository.DeleteUser(ctx, req.Msg.Name); err != nil {
+	if _, err := service.userRepository.DeleteUser(ctx, uid); err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 

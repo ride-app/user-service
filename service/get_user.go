@@ -16,11 +16,13 @@ func (service *UserServiceServer) GetUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
-	if req.Msg.Name == "" {
-		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("name cannot be empty"))
+	uid := strings.Split(req.Msg.Name, "/")[1]
+
+	if uid != req.Header().Get("uid") {
+		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	user, err := service.userRepository.GetUser(ctx, strings.Split(req.Msg.Name, "/")[1])
+	user, err := service.userRepository.GetUser(ctx, uid)
 
 	if err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)

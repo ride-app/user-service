@@ -15,11 +15,13 @@ func (service *UserServiceServer) DeleteSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
-	if req.Msg.Name == "" {
-		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("name cannot be empty"))
+	uid := strings.Split(req.Msg.Name, "/")[1]
+
+	if uid != req.Header().Get("uid") {
+		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	if _, err := service.savedlocationrepository.DeleteSavedLocation(ctx, strings.Split(req.Msg.Name, "/")[1], strings.Split(req.Msg.Name, "/")[3]); err != nil {
+	if _, err := service.savedlocationrepository.DeleteSavedLocation(ctx, uid, strings.Split(req.Msg.Name, "/")[3]); err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 

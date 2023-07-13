@@ -16,7 +16,13 @@ func (service *UserServiceServer) GetSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
-	location, err := service.savedlocationrepository.GetSavedLocation(ctx, strings.Split(req.Msg.Name, "/")[1], strings.Split(req.Msg.Name, "/")[3])
+	uid := strings.Split(req.Msg.Name, "/")[1]
+
+	if uid != req.Header().Get("uid") {
+		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
+	}
+
+	location, err := service.savedlocationrepository.GetSavedLocation(ctx, uid, strings.Split(req.Msg.Name, "/")[3])
 
 	if err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)
