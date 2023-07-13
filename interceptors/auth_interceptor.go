@@ -12,7 +12,7 @@ import (
 )
 
 func NewAuthInterceptor(ctx context.Context) (*connect.UnaryInterceptorFunc, error) {
-	jwksURI := "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com"
+	jwksURI := "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"
 
 	options := keyfunc.Options{
 		Ctx: ctx,
