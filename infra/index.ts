@@ -31,6 +31,10 @@ const service = new gcp.cloudrun.Service("service", {
               name: "FIREBASE_PROJECT_ID",
               value: gcp.config.project,
             },
+            {
+              name: "DEBUG",
+              value: new pulumi.Config().get("debug") ?? "false",
+            },
           ],
         },
       ],

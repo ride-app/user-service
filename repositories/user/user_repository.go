@@ -10,6 +10,7 @@ import (
 	firebase "firebase.google.com/go"
 	"firebase.google.com/go/auth"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
+	log "github.com/sirupsen/logrus"
 )
 
 type UserRepository interface {
@@ -28,6 +29,7 @@ func NewFirebaseUserRepository(firebaseApp *firebase.App) (*FirebaseImpl, error)
 	auth, err := firebaseApp.Auth(context.Background())
 
 	if err != nil {
+		log.Error("Failed to initialize firebase auth: ", err)
 		return nil, err
 	}
 
@@ -37,9 +39,12 @@ func NewFirebaseUserRepository(firebaseApp *firebase.App) (*FirebaseImpl, error)
 }
 
 func (r *FirebaseImpl) GetUser(ctx context.Context, id string) (*pb.User, error) {
+	log.Info("Getting user record")
+	log.Debug("id: ", id)
 	userRecord, err := r.auth.GetUser(ctx, id)
 
 	if err != nil {
+		log.Error("Failed to get user record: ", err)
 		return nil, err
 	}
 
@@ -55,12 +60,14 @@ func (r *FirebaseImpl) GetUser(ctx context.Context, id string) (*pb.User, error)
 }
 
 func (r *FirebaseImpl) UpdateUser(ctx context.Context, user *pb.User) (updateTime *time.Time, err error) {
+	log.Info("Updating user record")
 	params := (&auth.UserToUpdate{}).
 		DisplayName(user.DisplayName).
 		Email(*user.Email).
 		PhotoURL(user.PhotoUrl)
 
 	if _, err := r.auth.UpdateUser(ctx, strings.Split(user.Name, "/")[1], params); err != nil {
+		log.Error("Failed to update user record: ", err)
 		return nil, err
 	}
 
@@ -70,7 +77,9 @@ func (r *FirebaseImpl) UpdateUser(ctx context.Context, user *pb.User) (updateTim
 }
 
 func (r *FirebaseImpl) DeleteUser(ctx context.Context, id string) (deleteTime *time.Time, err error) {
+	log.Info("Deleting user record")
 	if err := r.auth.DeleteUser(ctx, id); err != nil {
+		log.Error("Failed to delete user record: ", err)
 		return nil, err
 	}
 

@@ -10,6 +10,7 @@ import (
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
+	log "github.com/sirupsen/logrus"
 	"google.golang.org/genproto/googleapis/type/latlng"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
@@ -34,6 +35,7 @@ func NewFirebaseSavedLocationRepository(firebaseApp *firebase.App) (*FirebaseImp
 	firestore, err := firebaseApp.Firestore(context.Background())
 
 	if err != nil {
+		log.Error("Failed to initialize firebase firestore: ", err)
 		return nil, err
 	}
 
@@ -43,6 +45,7 @@ func NewFirebaseSavedLocationRepository(firebaseApp *firebase.App) (*FirebaseImp
 }
 
 func (r *FirebaseImpl) CreateSavedLocation(ctx context.Context, savedlocation *pb.SavedLocation) (createTime *time.Time, err error) {
+	log.Info("Writing saved location to firestore")
 	writeResult, err := r.firestore.Collection("users").Doc(strings.Split(savedlocation.Name, "/")[1]).Collection("savedlocations").Doc(strings.Split(savedlocation.Name, "/")[3]).Set(ctx, map[string]interface{}{
 		"displayName": savedlocation.DisplayName,
 		"location": map[string]interface{}{
@@ -53,6 +56,7 @@ func (r *FirebaseImpl) CreateSavedLocation(ctx context.Context, savedlocation *p
 	})
 
 	if err != nil {
+		log.Error("Failed to write saved location to firestore: ", err)
 		return nil, err
 	}
 
@@ -60,13 +64,16 @@ func (r *FirebaseImpl) CreateSavedLocation(ctx context.Context, savedlocation *p
 }
 
 func (r *FirebaseImpl) GetSavedLocation(ctx context.Context, uid string, id string) (*pb.SavedLocation, error) {
+	log.Info("Getting saved location from firestore")
 	doc, err := r.firestore.Collection("users").Doc(uid).Collection("savedlocations").Doc(id).Get(ctx)
 
 	if err != nil {
+		log.Error("Failed to get saved location from firestore: ", err)
 		return nil, err
 	}
 
 	if !doc.Exists() {
+		log.Info("Saved location does not exist")
 		return nil, nil
 	}
 
@@ -86,9 +93,11 @@ func (r *FirebaseImpl) GetSavedLocation(ctx context.Context, uid string, id stri
 }
 
 func (r *FirebaseImpl) GetSavedLocations(ctx context.Context, uid string) ([]*pb.SavedLocation, error) {
+	log.Info("Getting saved locations from firestore")
 	docs, err := (r.firestore.Collection("users").Doc(uid).Collection("savedlocations").Documents(ctx)).GetAll()
 
 	if err != nil {
+		log.Error("Failed to get saved locations from firestore: ", err)
 		return nil, err
 	}
 
@@ -118,6 +127,7 @@ func (r *FirebaseImpl) GetSavedLocations(ctx context.Context, uid string) ([]*pb
 }
 
 func (r *FirebaseImpl) UpdateSavedLocation(ctx context.Context, savedlocation *pb.SavedLocation) (createTime *time.Time, err error) {
+	log.Info("Updating saved location in firestore")
 	writeResult, err := r.firestore.Collection("users").Doc(strings.Split(savedlocation.Name, "/")[1]).Collection("savedLocations").Doc(strings.Split(savedlocation.Name, "/")[3]).Set(ctx, map[string]interface{}{
 		"displayName": savedlocation.DisplayName,
 		"location": map[string]interface{}{
@@ -128,6 +138,7 @@ func (r *FirebaseImpl) UpdateSavedLocation(ctx context.Context, savedlocation *p
 	}, firestore.MergeAll)
 
 	if err != nil {
+		log.Error("Failed to update saved location in firestore: ", err)
 		return nil, err
 	}
 
@@ -135,9 +146,11 @@ func (r *FirebaseImpl) UpdateSavedLocation(ctx context.Context, savedlocation *p
 }
 
 func (r *FirebaseImpl) DeleteSavedLocation(ctx context.Context, uid string, id string) (deleteTime *time.Time, err error) {
+	log.Info("Deleting saved location from firestore")
 	writeResult, err := r.firestore.Collection("users").Doc(uid).Collection("savedLocationa").Doc(id).Delete(ctx)
 
 	if err != nil {
+		log.Error("Failed to delete saved location from firestore: ", err)
 		return nil, err
 	}
 
