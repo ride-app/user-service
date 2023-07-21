@@ -10,10 +10,7 @@ import (
 
 func NewFirebaseApp() (*firebase.App, error) {
 	ctx := context.Background()
-	conf := &firebase.Config{
-		ProjectID:   config.Env.Firebase_Project_Id,
-		DatabaseURL: config.Env.Firebase_Database_url,
-	}
+	conf := &firebase.Config{ProjectID: config.Env.Firebase_Project_Id}
 	log.Info("Initializing Firebase App")
 	app, err := firebase.NewApp(ctx, conf)
 

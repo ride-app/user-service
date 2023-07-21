@@ -3,7 +3,6 @@ import * as gcp from "@pulumi/gcp";
 
 const imageconfig = new pulumi.Config("image");
 const serviceConfig = new pulumi.Config("service");
-const firebaseConfig = new pulumi.Config("firebase");
 
 const location = gcp.config.region || "asia-south2";
 const serviceName = serviceConfig.get("name") || pulumi.getProject();
@@ -31,10 +30,6 @@ const service = new gcp.cloudrun.Service("service", {
             {
               name: "FIREBASE_PROJECT_ID",
               value: gcp.config.project,
-            },
-            {
-              name: "FIREBASE_DATABASE_URL",
-              value: firebaseConfig.require("databaseURL"),
             },
             {
               name: "DEBUG",

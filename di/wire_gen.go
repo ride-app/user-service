@@ -8,7 +8,6 @@ package di
 
 import (
 	"github.com/ride-app/user-service/repositories/saved-location"
-	"github.com/ride-app/user-service/repositories/token"
 	"github.com/ride-app/user-service/repositories/user"
 	"github.com/ride-app/user-service/service"
 	"github.com/ride-app/user-service/third-party"
@@ -29,10 +28,6 @@ func InitializeService() (*service.UserServiceServer, error) {
 	if err != nil {
 		return nil, err
 	}
-	tokenrepositoryFirebaseImpl, err := tokenrepository.NewFirebaseTokenRepository(app)
-	if err != nil {
-		return nil, err
-	}
-	userServiceServer := service.New(firebaseImpl, savedlocationrepositoryFirebaseImpl, tokenrepositoryFirebaseImpl)
+	userServiceServer := service.New(firebaseImpl, savedlocationrepositoryFirebaseImpl)
 	return userServiceServer, nil
 }
