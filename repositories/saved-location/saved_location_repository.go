@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/firestore"
-	firebase "firebase.google.com/go"
+	firebase "firebase.google.com/go/v4"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/genproto/googleapis/type/latlng"
