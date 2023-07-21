@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	firebase "firebase.google.com/go"
-	"firebase.google.com/go/auth"
+	firebase "firebase.google.com/go/v4"
+	"firebase.google.com/go/v4/auth"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
 	log "github.com/sirupsen/logrus"
 )
