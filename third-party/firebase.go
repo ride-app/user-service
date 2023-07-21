@@ -3,7 +3,7 @@ package thirdparty
 import (
 	"context"
 
-	firebase "firebase.google.com/go/v4"
+	firebase "firebase.google.com/go"
 	"github.com/ride-app/user-service/config"
 	log "github.com/sirupsen/logrus"
 )

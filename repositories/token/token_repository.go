@@ -6,8 +6,8 @@ import (
 	"context"
 	"fmt"
 
-	firebase "firebase.google.com/go/v4"
-	db "firebase.google.com/go/v4/db"
+	firebase "firebase.google.com/go"
+	db "firebase.google.com/go/db"
 	log "github.com/sirupsen/logrus"
 )
 
