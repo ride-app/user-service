@@ -30,7 +30,7 @@ func (service *UserServiceServer) UpdateUser(ctx context.Context,
 	user, err := service.userRepository.GetUser(ctx, uid)
 
 	if err != nil {
-		log.Error("Failed to get user: ", err)
+		log.WithError(err).Error("Failed to get user")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
@@ -42,7 +42,7 @@ func (service *UserServiceServer) UpdateUser(ctx context.Context,
 	updateTime, err := service.userRepository.UpdateUser(ctx, req.Msg.User)
 
 	if err != nil {
-		log.Error("Failed to update user: ", err)
+		log.WithError(err).Error("Failed to update user")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
@@ -53,7 +53,7 @@ func (service *UserServiceServer) UpdateUser(ctx context.Context,
 	}
 
 	if err := res.Validate(); err != nil {
-		log.Error("Failed to validate response: ", err)
+		log.WithError(err).Error("Failed to validate response")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 

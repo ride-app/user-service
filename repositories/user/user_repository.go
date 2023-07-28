@@ -29,7 +29,7 @@ func NewFirebaseUserRepository(firebaseApp *firebase.App) (*FirebaseImpl, error)
 	auth, err := firebaseApp.Auth(context.Background())
 
 	if err != nil {
-		log.Error("Failed to initialize firebase auth: ", err)
+		log.WithError(err).Error("Failed to initialize firebase auth")
 		return nil, err
 	}
 
@@ -44,7 +44,7 @@ func (r *FirebaseImpl) GetUser(ctx context.Context, id string) (*pb.User, error)
 	userRecord, err := r.auth.GetUser(ctx, id)
 
 	if err != nil {
-		log.Error("Failed to get user record: ", err)
+		log.WithError(err).Error("Failed to get user record")
 		return nil, err
 	}
 
@@ -67,7 +67,7 @@ func (r *FirebaseImpl) UpdateUser(ctx context.Context, user *pb.User) (updateTim
 		PhotoURL(user.PhotoUrl)
 
 	if _, err := r.auth.UpdateUser(ctx, strings.Split(user.Name, "/")[1], params); err != nil {
-		log.Error("Failed to update user record: ", err)
+		log.WithError(err).Error("Failed to update user record")
 		return nil, err
 	}
 
@@ -79,7 +79,7 @@ func (r *FirebaseImpl) UpdateUser(ctx context.Context, user *pb.User) (updateTim
 func (r *FirebaseImpl) DeleteUser(ctx context.Context, id string) (deleteTime *time.Time, err error) {
 	log.Info("Deleting user record")
 	if err := r.auth.DeleteUser(ctx, id); err != nil {
-		log.Error("Failed to delete user record: ", err)
+		log.WithError(err).Error("Failed to delete user record")
 		return nil, err
 	}
 

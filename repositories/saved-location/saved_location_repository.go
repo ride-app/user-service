@@ -35,7 +35,7 @@ func NewFirebaseSavedLocationRepository(firebaseApp *firebase.App) (*FirebaseImp
 	firestore, err := firebaseApp.Firestore(context.Background())
 
 	if err != nil {
-		log.Error("Failed to initialize firebase firestore: ", err)
+		log.WithError(err).Error("Failed to initialize firebase firestore")
 		return nil, err
 	}
 
@@ -56,7 +56,7 @@ func (r *FirebaseImpl) CreateSavedLocation(ctx context.Context, savedlocation *p
 	})
 
 	if err != nil {
-		log.Error("Failed to write saved location to firestore: ", err)
+		log.WithError(err).Error("Failed to write saved location to firestore")
 		return nil, err
 	}
 
@@ -68,7 +68,7 @@ func (r *FirebaseImpl) GetSavedLocation(ctx context.Context, uid string, id stri
 	doc, err := r.firestore.Collection("users").Doc(uid).Collection("savedlocations").Doc(id).Get(ctx)
 
 	if err != nil {
-		log.Error("Failed to get saved location from firestore: ", err)
+		log.WithError(err).Error("Failed to get saved location from firestore")
 		return nil, err
 	}
 
@@ -97,7 +97,7 @@ func (r *FirebaseImpl) GetSavedLocations(ctx context.Context, uid string) ([]*pb
 	docs, err := (r.firestore.Collection("users").Doc(uid).Collection("savedlocations").Documents(ctx)).GetAll()
 
 	if err != nil {
-		log.Error("Failed to get saved locations from firestore: ", err)
+		log.WithError(err).Error("Failed to get saved locations from firestore")
 		return nil, err
 	}
 
@@ -138,7 +138,7 @@ func (r *FirebaseImpl) UpdateSavedLocation(ctx context.Context, savedlocation *p
 	}, firestore.MergeAll)
 
 	if err != nil {
-		log.Error("Failed to update saved location in firestore: ", err)
+		log.WithError(err).Error("Failed to update saved location in firestore")
 		return nil, err
 	}
 
@@ -150,7 +150,7 @@ func (r *FirebaseImpl) DeleteSavedLocation(ctx context.Context, uid string, id s
 	writeResult, err := r.firestore.Collection("users").Doc(uid).Collection("savedLocationa").Doc(id).Delete(ctx)
 
 	if err != nil {
-		log.Error("Failed to delete saved location from firestore: ", err)
+		log.WithError(err).Error("Failed to delete saved location from firestore")
 		return nil, err
 	}
 

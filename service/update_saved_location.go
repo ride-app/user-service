@@ -29,7 +29,7 @@ func (service *UserServiceServer) UpdateSavedLocation(ctx context.Context,
 	user, err := service.savedlocationrepository.GetSavedLocation(ctx, uid, strings.Split(req.Msg.SavedLocation.Name, "/")[3])
 
 	if err != nil {
-		log.Error("Failed to get saved location: ", err)
+		log.WithError(err).Error("Failed to get saved location")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
@@ -41,7 +41,7 @@ func (service *UserServiceServer) UpdateSavedLocation(ctx context.Context,
 	updateTime, err := service.savedlocationrepository.UpdateSavedLocation(ctx, req.Msg.SavedLocation)
 
 	if err != nil {
-		log.Error("Failed to update saved location: ", err)
+		log.WithError(err).Error("Failed to update saved location")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
@@ -52,7 +52,7 @@ func (service *UserServiceServer) UpdateSavedLocation(ctx context.Context,
 	}
 
 	if err := res.Validate(); err != nil {
-		log.Error("Failed to validate response: ", err)
+		log.WithError(err).Error("Failed to validate response")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 

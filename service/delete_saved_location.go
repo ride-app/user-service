@@ -26,7 +26,7 @@ func (service *UserServiceServer) DeleteSavedLocation(ctx context.Context,
 	}
 
 	if _, err := service.savedlocationrepository.DeleteSavedLocation(ctx, uid, strings.Split(req.Msg.Name, "/")[3]); err != nil {
-		log.Error("Failed to delete saved location: ", err)
+		log.WithError(err).Error("Failed to delete saved location")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 

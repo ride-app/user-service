@@ -29,7 +29,7 @@ func (service *UserServiceServer) ListSavedLocations(ctx context.Context,
 	locations, err := service.savedlocationrepository.GetSavedLocations(ctx, uid)
 
 	if err != nil {
-		log.Error("Failed to get saved locations: ", err)
+		log.WithError(err).Error("Failed to get saved locations")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
@@ -38,7 +38,7 @@ func (service *UserServiceServer) ListSavedLocations(ctx context.Context,
 	}
 
 	if err := res.Validate(); err != nil {
-		log.Error("Failed to validate response: ", err)
+		log.WithError(err).Error("Failed to validate response")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 

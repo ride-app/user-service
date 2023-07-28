@@ -28,7 +28,7 @@ func (service *UserServiceServer) DeleteUser(ctx context.Context,
 	}
 
 	if _, err := service.userRepository.DeleteUser(ctx, uid); err != nil {
-		log.Error("Failed to delete user: ", err)
+		log.WithError(err).Error("Failed to delete user")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 

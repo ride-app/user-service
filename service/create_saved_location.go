@@ -31,7 +31,7 @@ func (service *UserServiceServer) CreateSavedLocation(ctx context.Context,
 	createTime, err := service.savedlocationrepository.CreateSavedLocation(ctx, req.Msg.SavedLocation)
 
 	if err != nil {
-		log.Error("Failed to create saved location: ", err)
+		log.WithError(err).Error("Failed to create saved location")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
@@ -43,7 +43,7 @@ func (service *UserServiceServer) CreateSavedLocation(ctx context.Context,
 	}
 
 	if err := res.Validate(); err != nil {
-		log.Error("Failed to validate response: ", err)
+		log.WithError(err).Error("Failed to validate response")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
