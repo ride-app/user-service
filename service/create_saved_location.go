@@ -7,12 +7,13 @@ import (
 
 	"github.com/bufbuild/connect-go"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
-	log "github.com/sirupsen/logrus"
+
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (service *UserServiceServer) CreateSavedLocation(ctx context.Context,
 	req *connect.Request[pb.CreateSavedLocationRequest]) (*connect.Response[pb.CreateSavedLocationResponse], error) {
+	log := service.logger.WithField("method", "CreateSavedLocation")
 
 	if err := req.Msg.Validate(); err != nil {
 		log.Info("Invalid request")
@@ -28,7 +29,7 @@ func (service *UserServiceServer) CreateSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	createTime, err := service.savedlocationrepository.CreateSavedLocation(ctx, req.Msg.SavedLocation)
+	createTime, err := service.savedlocationrepository.CreateSavedLocation(ctx, req.Msg.SavedLocation, log)
 
 	if err != nil {
 		log.WithError(err).Error("Failed to create saved location")

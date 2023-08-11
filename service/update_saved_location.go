@@ -7,12 +7,14 @@ import (
 
 	"github.com/bufbuild/connect-go"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
-	log "github.com/sirupsen/logrus"
+
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (service *UserServiceServer) UpdateSavedLocation(ctx context.Context,
 	req *connect.Request[pb.UpdateSavedLocationRequest]) (*connect.Response[pb.UpdateSavedLocationResponse], error) {
+	log := service.logger.WithField("method", "UpdateSavedLocation")
+
 	if err := req.Msg.Validate(); err != nil {
 		log.Info("Invalid request")
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
@@ -26,7 +28,7 @@ func (service *UserServiceServer) UpdateSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	user, err := service.savedlocationrepository.GetSavedLocation(ctx, uid, strings.Split(req.Msg.SavedLocation.Name, "/")[3])
+	user, err := service.savedlocationrepository.GetSavedLocation(ctx, uid, strings.Split(req.Msg.SavedLocation.Name, "/")[3], log)
 
 	if err != nil {
 		log.WithError(err).Error("Failed to get saved location")
@@ -38,7 +40,7 @@ func (service *UserServiceServer) UpdateSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodeNotFound, errors.New("location not found"))
 	}
 
-	updateTime, err := service.savedlocationrepository.UpdateSavedLocation(ctx, req.Msg.SavedLocation)
+	updateTime, err := service.savedlocationrepository.UpdateSavedLocation(ctx, req.Msg.SavedLocation, log)
 
 	if err != nil {
 		log.WithError(err).Error("Failed to update saved location")

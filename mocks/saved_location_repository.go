@@ -11,6 +11,7 @@ import (
 
 	gomock "github.com/golang/mock/gomock"
 	riderv1alpha1 "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
+	logger "github.com/ride-app/user-service/logger"
 )
 
 // MockSavedLocationRepository is a mock of SavedLocationRepository interface.
@@ -37,76 +38,76 @@ func (m *MockSavedLocationRepository) EXPECT() *MockSavedLocationRepositoryMockR
 }
 
 // CreateSavedLocation mocks base method.
-func (m *MockSavedLocationRepository) CreateSavedLocation(arg0 context.Context, arg1 *riderv1alpha1.SavedLocation) (*time.Time, error) {
+func (m *MockSavedLocationRepository) CreateSavedLocation(arg0 context.Context, arg1 *riderv1alpha1.SavedLocation, arg2 logger.Logger) (*time.Time, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateSavedLocation", arg0, arg1)
+	ret := m.ctrl.Call(m, "CreateSavedLocation", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*time.Time)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // CreateSavedLocation indicates an expected call of CreateSavedLocation.
-func (mr *MockSavedLocationRepositoryMockRecorder) CreateSavedLocation(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockSavedLocationRepositoryMockRecorder) CreateSavedLocation(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSavedLocation", reflect.TypeOf((*MockSavedLocationRepository)(nil).CreateSavedLocation), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSavedLocation", reflect.TypeOf((*MockSavedLocationRepository)(nil).CreateSavedLocation), arg0, arg1, arg2)
 }
 
 // DeleteSavedLocation mocks base method.
-func (m *MockSavedLocationRepository) DeleteSavedLocation(arg0 context.Context, arg1, arg2 string) (*time.Time, error) {
+func (m *MockSavedLocationRepository) DeleteSavedLocation(arg0 context.Context, arg1, arg2 string, arg3 logger.Logger) (*time.Time, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteSavedLocation", arg0, arg1, arg2)
+	ret := m.ctrl.Call(m, "DeleteSavedLocation", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(*time.Time)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // DeleteSavedLocation indicates an expected call of DeleteSavedLocation.
-func (mr *MockSavedLocationRepositoryMockRecorder) DeleteSavedLocation(arg0, arg1, arg2 interface{}) *gomock.Call {
+func (mr *MockSavedLocationRepositoryMockRecorder) DeleteSavedLocation(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteSavedLocation", reflect.TypeOf((*MockSavedLocationRepository)(nil).DeleteSavedLocation), arg0, arg1, arg2)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteSavedLocation", reflect.TypeOf((*MockSavedLocationRepository)(nil).DeleteSavedLocation), arg0, arg1, arg2, arg3)
 }
 
 // GetSavedLocation mocks base method.
-func (m *MockSavedLocationRepository) GetSavedLocation(arg0 context.Context, arg1, arg2 string) (*riderv1alpha1.SavedLocation, error) {
+func (m *MockSavedLocationRepository) GetSavedLocation(arg0 context.Context, arg1, arg2 string, arg3 logger.Logger) (*riderv1alpha1.SavedLocation, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetSavedLocation", arg0, arg1, arg2)
+	ret := m.ctrl.Call(m, "GetSavedLocation", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(*riderv1alpha1.SavedLocation)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetSavedLocation indicates an expected call of GetSavedLocation.
-func (mr *MockSavedLocationRepositoryMockRecorder) GetSavedLocation(arg0, arg1, arg2 interface{}) *gomock.Call {
+func (mr *MockSavedLocationRepositoryMockRecorder) GetSavedLocation(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSavedLocation", reflect.TypeOf((*MockSavedLocationRepository)(nil).GetSavedLocation), arg0, arg1, arg2)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSavedLocation", reflect.TypeOf((*MockSavedLocationRepository)(nil).GetSavedLocation), arg0, arg1, arg2, arg3)
 }
 
 // GetSavedLocations mocks base method.
-func (m *MockSavedLocationRepository) GetSavedLocations(arg0 context.Context, arg1 string) ([]*riderv1alpha1.SavedLocation, error) {
+func (m *MockSavedLocationRepository) GetSavedLocations(arg0 context.Context, arg1 string, arg2 logger.Logger) ([]*riderv1alpha1.SavedLocation, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetSavedLocations", arg0, arg1)
+	ret := m.ctrl.Call(m, "GetSavedLocations", arg0, arg1, arg2)
 	ret0, _ := ret[0].([]*riderv1alpha1.SavedLocation)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetSavedLocations indicates an expected call of GetSavedLocations.
-func (mr *MockSavedLocationRepositoryMockRecorder) GetSavedLocations(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockSavedLocationRepositoryMockRecorder) GetSavedLocations(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSavedLocations", reflect.TypeOf((*MockSavedLocationRepository)(nil).GetSavedLocations), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSavedLocations", reflect.TypeOf((*MockSavedLocationRepository)(nil).GetSavedLocations), arg0, arg1, arg2)
 }
 
 // UpdateSavedLocation mocks base method.
-func (m *MockSavedLocationRepository) UpdateSavedLocation(arg0 context.Context, arg1 *riderv1alpha1.SavedLocation) (*time.Time, error) {
+func (m *MockSavedLocationRepository) UpdateSavedLocation(arg0 context.Context, arg1 *riderv1alpha1.SavedLocation, arg2 logger.Logger) (*time.Time, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateSavedLocation", arg0, arg1)
+	ret := m.ctrl.Call(m, "UpdateSavedLocation", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*time.Time)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // UpdateSavedLocation indicates an expected call of UpdateSavedLocation.
-func (mr *MockSavedLocationRepositoryMockRecorder) UpdateSavedLocation(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockSavedLocationRepositoryMockRecorder) UpdateSavedLocation(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateSavedLocation", reflect.TypeOf((*MockSavedLocationRepository)(nil).UpdateSavedLocation), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateSavedLocation", reflect.TypeOf((*MockSavedLocationRepository)(nil).UpdateSavedLocation), arg0, arg1, arg2)
 }

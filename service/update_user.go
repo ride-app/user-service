@@ -7,12 +7,14 @@ import (
 
 	"github.com/bufbuild/connect-go"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
-	log "github.com/sirupsen/logrus"
+
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (service *UserServiceServer) UpdateUser(ctx context.Context,
 	req *connect.Request[pb.UpdateUserRequest]) (*connect.Response[pb.UpdateUserResponse], error) {
+	log := service.logger.WithField("method", "UpdateUser")
+
 	if err := req.Msg.Validate(); err != nil {
 		log.Info("Invalid request")
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
@@ -27,7 +29,7 @@ func (service *UserServiceServer) UpdateUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	user, err := service.userRepository.GetUser(ctx, uid)
+	user, err := service.userRepository.GetUser(ctx, uid, log)
 
 	if err != nil {
 		log.WithError(err).Error("Failed to get user")
@@ -39,7 +41,7 @@ func (service *UserServiceServer) UpdateUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodeNotFound, errors.New("user not found"))
 	}
 
-	updateTime, err := service.userRepository.UpdateUser(ctx, req.Msg.User)
+	updateTime, err := service.userRepository.UpdateUser(ctx, req.Msg.User, log)
 
 	if err != nil {
 		log.WithError(err).Error("Failed to update user")

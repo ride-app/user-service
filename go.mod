@@ -14,7 +14,7 @@ require (
 	github.com/ilyakaznacheev/cleanenv v1.2.6
 	github.com/onsi/ginkgo/v2 v2.1.4
 	github.com/onsi/gomega v1.19.0
-	github.com/sirupsen/logrus v1.8.1
+	go.uber.org/zap v1.25.0
 	golang.org/x/net v0.11.0
 	google.golang.org/genproto v0.0.0-20230530153820-e85fd2cbaebc
 	google.golang.org/genproto/googleapis/api v0.0.0-20230530153820-e85fd2cbaebc
@@ -44,6 +44,7 @@ require (
 	github.com/joho/godotenv v1.3.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	go.opencensus.io v0.24.0 // indirect
+	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/crypto v0.10.0 // indirect
 	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/oauth2 v0.9.0 // indirect

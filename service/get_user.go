@@ -7,11 +7,11 @@ import (
 
 	"github.com/bufbuild/connect-go"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
-	log "github.com/sirupsen/logrus"
 )
 
 func (service *UserServiceServer) GetUser(ctx context.Context,
 	req *connect.Request[pb.GetUserRequest]) (*connect.Response[pb.GetUserResponse], error) {
+	log := service.logger.WithField("method", "GetUser")
 
 	if err := req.Msg.Validate(); err != nil {
 		log.Info("Invalid request")
@@ -28,7 +28,7 @@ func (service *UserServiceServer) GetUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	user, err := service.userRepository.GetUser(ctx, uid)
+	user, err := service.userRepository.GetUser(ctx, uid, log)
 
 	if err != nil {
 		log.WithError(err).Error("Failed to get user")

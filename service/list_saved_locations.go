@@ -7,11 +7,11 @@ import (
 
 	"github.com/bufbuild/connect-go"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
-	log "github.com/sirupsen/logrus"
 )
 
 func (service *UserServiceServer) ListSavedLocations(ctx context.Context,
 	req *connect.Request[pb.ListSavedLocationsRequest]) (*connect.Response[pb.ListSavedLocationsResponse], error) {
+	log := service.logger.WithField("method", "ListSavedLocations")
 
 	if err := req.Msg.Validate(); err != nil {
 		log.Info("Invalid request")
@@ -26,7 +26,7 @@ func (service *UserServiceServer) ListSavedLocations(ctx context.Context,
 		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	locations, err := service.savedlocationrepository.GetSavedLocations(ctx, uid)
+	locations, err := service.savedlocationrepository.GetSavedLocations(ctx, uid, log)
 
 	if err != nil {
 		log.WithError(err).Error("Failed to get saved locations")

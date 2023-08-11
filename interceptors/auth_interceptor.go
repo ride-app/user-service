@@ -8,10 +8,10 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/bufbuild/connect-go"
 	"github.com/golang-jwt/jwt/v5"
-	log "github.com/sirupsen/logrus"
+	"github.com/ride-app/user-service/logger"
 )
 
-func NewAuthInterceptor(ctx context.Context) (*connect.UnaryInterceptorFunc, error) {
+func NewAuthInterceptor(ctx context.Context, log logger.Logger) (*connect.UnaryInterceptorFunc, error) {
 	jwksURI := "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"
 
 	options := keyfunc.Options{

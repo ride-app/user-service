@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/bufbuild/connect-go"
 	"github.com/ilyakaznacheev/cleanenv"
@@ -12,13 +11,20 @@ import (
 	"github.com/ride-app/user-service/config"
 	"github.com/ride-app/user-service/di"
 	"github.com/ride-app/user-service/interceptors"
+	"github.com/ride-app/user-service/logger"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
-
-	log "github.com/sirupsen/logrus"
 )
 
 func main() {
+	err := cleanenv.ReadEnv(&config.Env)
+
+	log := logger.New()
+
+	if err != nil {
+		log.WithError(err).Fatal("Failed to read environment variables")
+	}
+
 	service, err := di.InitializeService()
 
 	if err != nil {
@@ -49,29 +55,4 @@ func main() {
 		// Use h2c so we can serve HTTP/2 without TLS.
 		h2c.NewHandler(mux, &http2.Server{}),
 	))
-}
-
-func init() {
-	log.SetReportCaller(true)
-
-	log.SetFormatter(&log.JSONFormatter{
-		FieldMap: log.FieldMap{
-			log.FieldKeyTime:  "timestamp",
-			log.FieldKeyLevel: "severity",
-			log.FieldKeyMsg:   "message",
-		},
-		TimestampFormat: time.RFC3339Nano,
-	})
-
-	log.SetLevel(log.InfoLevel)
-
-	err := cleanenv.ReadEnv(&config.Env)
-
-	if config.Env.Debug {
-		log.SetLevel(log.DebugLevel)
-	}
-
-	if err != nil {
-		log.WithError(err).Warn("Could not load config")
-	}
 }

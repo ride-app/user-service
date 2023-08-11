@@ -11,6 +11,7 @@ import (
 
 	gomock "github.com/golang/mock/gomock"
 	riderv1alpha1 "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
+	logger "github.com/ride-app/user-service/logger"
 )
 
 // MockUserRepository is a mock of UserRepository interface.
@@ -37,46 +38,46 @@ func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 }
 
 // DeleteUser mocks base method.
-func (m *MockUserRepository) DeleteUser(arg0 context.Context, arg1 string) (*time.Time, error) {
+func (m *MockUserRepository) DeleteUser(arg0 context.Context, arg1 string, arg2 logger.Logger) (*time.Time, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteUser", arg0, arg1)
+	ret := m.ctrl.Call(m, "DeleteUser", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*time.Time)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // DeleteUser indicates an expected call of DeleteUser.
-func (mr *MockUserRepositoryMockRecorder) DeleteUser(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) DeleteUser(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockUserRepository)(nil).DeleteUser), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockUserRepository)(nil).DeleteUser), arg0, arg1, arg2)
 }
 
 // GetUser mocks base method.
-func (m *MockUserRepository) GetUser(arg0 context.Context, arg1 string) (*riderv1alpha1.User, error) {
+func (m *MockUserRepository) GetUser(arg0 context.Context, arg1 string, arg2 logger.Logger) (*riderv1alpha1.User, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetUser", arg0, arg1)
+	ret := m.ctrl.Call(m, "GetUser", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*riderv1alpha1.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetUser indicates an expected call of GetUser.
-func (mr *MockUserRepositoryMockRecorder) GetUser(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) GetUser(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockUserRepository)(nil).GetUser), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockUserRepository)(nil).GetUser), arg0, arg1, arg2)
 }
 
 // UpdateUser mocks base method.
-func (m *MockUserRepository) UpdateUser(arg0 context.Context, arg1 *riderv1alpha1.User) (*time.Time, error) {
+func (m *MockUserRepository) UpdateUser(arg0 context.Context, arg1 *riderv1alpha1.User, arg2 logger.Logger) (*time.Time, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateUser", arg0, arg1)
+	ret := m.ctrl.Call(m, "UpdateUser", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*time.Time)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // UpdateUser indicates an expected call of UpdateUser.
-func (mr *MockUserRepositoryMockRecorder) UpdateUser(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) UpdateUser(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockUserRepository)(nil).UpdateUser), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockUserRepository)(nil).UpdateUser), arg0, arg1, arg2)
 }

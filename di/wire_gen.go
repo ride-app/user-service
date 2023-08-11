@@ -7,6 +7,7 @@
 package di
 
 import (
+	"github.com/ride-app/user-service/logger"
 	"github.com/ride-app/user-service/repositories/saved-location"
 	"github.com/ride-app/user-service/repositories/user"
 	"github.com/ride-app/user-service/service"
@@ -16,18 +17,19 @@ import (
 // Injectors from wire.go:
 
 func InitializeService() (*service.UserServiceServer, error) {
-	app, err := thirdparty.NewFirebaseApp()
+	logrusLogger := logger.New()
+	app, err := thirdparty.NewFirebaseApp(logrusLogger)
 	if err != nil {
 		return nil, err
 	}
-	firebaseImpl, err := userrepository.NewFirebaseUserRepository(app)
+	firebaseImpl, err := userrepository.NewFirebaseUserRepository(app, logrusLogger)
 	if err != nil {
 		return nil, err
 	}
-	savedlocationrepositoryFirebaseImpl, err := savedlocationrepository.NewFirebaseSavedLocationRepository(app)
+	savedlocationrepositoryFirebaseImpl, err := savedlocationrepository.NewFirebaseSavedLocationRepository(app, logrusLogger)
 	if err != nil {
 		return nil, err
 	}
-	userServiceServer := service.New(firebaseImpl, savedlocationrepositoryFirebaseImpl)
+	userServiceServer := service.New(firebaseImpl, savedlocationrepositoryFirebaseImpl, logrusLogger)
 	return userServiceServer, nil
 }
