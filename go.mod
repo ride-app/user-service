@@ -11,7 +11,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.0.0
 	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.5.0
-	github.com/ilyakaznacheev/cleanenv v1.2.6
+	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/onsi/ginkgo/v2 v2.12.1
 	github.com/onsi/gomega v1.28.0
 	go.uber.org/zap v1.26.0
