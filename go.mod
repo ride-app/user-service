@@ -15,7 +15,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.1.4
 	github.com/onsi/gomega v1.28.0
 	go.uber.org/zap v1.26.0
-	golang.org/x/net v0.11.0
+	golang.org/x/net v0.16.0
 	google.golang.org/genproto v0.0.0-20230530153820-e85fd2cbaebc
 	google.golang.org/genproto/googleapis/api v0.0.0-20230530153820-e85fd2cbaebc
 	google.golang.org/protobuf v1.31.0
