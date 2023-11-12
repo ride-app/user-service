@@ -13,7 +13,7 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/onsi/ginkgo/v2 v2.13.0
-	github.com/onsi/gomega v1.29.0
+	github.com/onsi/gomega v1.30.0
 	go.uber.org/zap v1.26.0
 	golang.org/x/net v0.18.0
 	google.golang.org/genproto e917dd12ba7a
