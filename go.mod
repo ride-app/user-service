@@ -18,7 +18,7 @@ require (
 	golang.org/x/net v0.19.0
 	google.golang.org/genproto e917dd12ba7a
 	google.golang.org/genproto/googleapis/api e917dd12ba7a
-	google.golang.org/protobuf v1.31.0
+	google.golang.org/protobuf v1.32.0
 )
 
 require (
