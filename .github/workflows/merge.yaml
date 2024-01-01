@@ -1,9 +1,9 @@
-name: pr
+name: Merge
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - trunk-merge/**
 
 jobs:
   lint:
