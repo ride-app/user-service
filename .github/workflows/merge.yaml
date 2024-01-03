@@ -22,7 +22,11 @@ jobs:
           github_token: ${{ github.token }}
 
       - name: Authenticate buf
-        run: echo ${{ secrets.BUF_TOKEN }} | buf registry login --username ${{ env.BUF_USER }} --token-stdin
+        uses: bufbuild/buf-setup-action@v1.28.1
+        with:
+          buf_user: ${{ env.BUF_USER }}
+          buf_api_token: ${{ secrets.BUF_TOKEN }}
+          github_token: ${{ github.token }}
 
       - name: Build protobuf
         run: buf generate
