@@ -11,7 +11,7 @@ import (
 
 	gomock "github.com/golang/mock/gomock"
 	riderv1alpha1 "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
-	logger "github.com/ride-app/user-service/logger"
+	logger "github.com/ride-app/user-service/internal/utils/logger"
 )
 
 // MockUserRepository is a mock of UserRepository interface.

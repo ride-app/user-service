@@ -1,9 +1,9 @@
-package service
+package apihandlers
 
 import (
-	"github.com/ride-app/user-service/logger"
-	slr "github.com/ride-app/user-service/repositories/saved-location"
-	er "github.com/ride-app/user-service/repositories/user"
+	"github.com/ride-app/user-service/internal/utils/logger"
+	slr "github.com/ride-app/user-service/internal/repositories/saved-location"
+	er "github.com/ride-app/user-service/internal/repositories/user"
 )
 
 type UserServiceServer struct {

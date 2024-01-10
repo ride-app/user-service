@@ -9,9 +9,8 @@ import (
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1/riderv1alpha1connect"
 	"github.com/ride-app/user-service/config"
-	"github.com/ride-app/user-service/di"
-	"github.com/ride-app/user-service/interceptors"
-	"github.com/ride-app/user-service/logger"
+	"github.com/ride-app/user-service/internal/api-handlers/interceptors"
+	"github.com/ride-app/user-service/internal/utils/logger"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
@@ -25,7 +24,7 @@ func main() {
 		log.WithError(err).Fatal("Failed to read environment variables")
 	}
 
-	service, err := di.InitializeService()
+	service, err := InitializeService()
 
 	if err != nil {
 		log.WithError(err).Fatal("Failed to initialize service")

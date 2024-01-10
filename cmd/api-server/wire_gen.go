@@ -4,19 +4,19 @@
 //go:build !wireinject
 // +build !wireinject
 
-package di
+package main
 
 import (
-	"github.com/ride-app/user-service/logger"
-	"github.com/ride-app/user-service/repositories/saved-location"
-	"github.com/ride-app/user-service/repositories/user"
-	"github.com/ride-app/user-service/service"
+	"github.com/ride-app/user-service/internal/api-handlers"
+	"github.com/ride-app/user-service/internal/repositories/saved-location"
+	"github.com/ride-app/user-service/internal/repositories/user"
+	"github.com/ride-app/user-service/internal/utils/logger"
 	"github.com/ride-app/user-service/third-party"
 )
 
 // Injectors from wire.go:
 
-func InitializeService() (*service.UserServiceServer, error) {
+func InitializeService() (*apihandlers.UserServiceServer, error) {
 	logrusLogger := logger.New()
 	app, err := thirdparty.NewFirebaseApp(logrusLogger)
 	if err != nil {
@@ -30,6 +30,6 @@ func InitializeService() (*service.UserServiceServer, error) {
 	if err != nil {
 		return nil, err
 	}
-	userServiceServer := service.New(firebaseImpl, savedlocationrepositoryFirebaseImpl, logrusLogger)
+	userServiceServer := apihandlers.New(firebaseImpl, savedlocationrepositoryFirebaseImpl, logrusLogger)
 	return userServiceServer, nil
 }
