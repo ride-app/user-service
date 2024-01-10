@@ -5,7 +5,7 @@
     "@types/node": "20.10.8"
   },
   "dependencies": {
-    "@pulumi/gcp": "^7.2.2",
-    "@pulumi/pulumi": "^3.96.2"
+    "@pulumi/gcp": "^7.5.0",
+    "@pulumi/pulumi": "^3.101.0"
   }
 }
