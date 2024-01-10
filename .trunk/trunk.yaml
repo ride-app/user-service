@@ -29,7 +29,7 @@ lint:
   ignore:
     - linters: [golangci-lint]
       paths:
-        - tools
+        - internal/utils/tools
 
     - linters: [goimports]
       paths:
