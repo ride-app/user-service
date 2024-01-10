@@ -1,4 +1,4 @@
-package service
+package apihandlers
 
 import (
 	"context"
@@ -7,19 +7,20 @@ import (
 
 	"github.com/bufbuild/connect-go"
 	pb "github.com/ride-app/user-service/api/gen/ride/rider/v1alpha1"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (service *UserServiceServer) GetUser(ctx context.Context,
-	req *connect.Request[pb.GetUserRequest]) (*connect.Response[pb.GetUserResponse], error) {
-	log := service.logger.WithField("method", "GetUser")
+func (service *UserServiceServer) CreateSavedLocation(ctx context.Context,
+	req *connect.Request[pb.CreateSavedLocationRequest]) (*connect.Response[pb.CreateSavedLocationResponse], error) {
+	log := service.logger.WithField("method", "CreateSavedLocation")
 
 	if err := req.Msg.Validate(); err != nil {
 		log.Info("Invalid request")
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
-	uid := strings.Split(req.Msg.Name, "/")[1]
-
+	uid := strings.Split(req.Msg.SavedLocation.Name, "/")[1]
 	log.Debug("uid: ", uid)
 	log.Debug("Request header uid: ", req.Header().Get("uid"))
 
@@ -28,20 +29,18 @@ func (service *UserServiceServer) GetUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	user, err := service.userRepository.GetUser(ctx, uid, log)
+	createTime, err := service.savedlocationrepository.CreateSavedLocation(ctx, req.Msg.SavedLocation, log)
 
 	if err != nil {
-		log.WithError(err).Error("Failed to get user")
+		log.WithError(err).Error("Failed to create saved location")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
-	if user == nil {
-		log.Info("User not found")
-		return nil, connect.NewError(connect.CodeNotFound, errors.New("user not found"))
-	}
+	req.Msg.SavedLocation.CreateTime = timestamppb.New(*createTime)
+	req.Msg.SavedLocation.UpdateTime = timestamppb.New(*createTime)
 
-	res := &pb.GetUserResponse{
-		User: user,
+	res := &pb.CreateSavedLocationResponse{
+		SavedLocation: req.Msg.SavedLocation,
 	}
 
 	if err := res.Validate(); err != nil {
@@ -49,6 +48,6 @@ func (service *UserServiceServer) GetUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
-	log.Info("Successfully retrieved user")
+	log.Info("Successfully created saved location")
 	return connect.NewResponse(res), nil
 }

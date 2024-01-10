@@ -1,17 +1,17 @@
 //go:build wireinject
 
-package di
+package main
 
 import (
 	"github.com/google/wire"
-	"github.com/ride-app/user-service/logger"
-	savedlocationrepository "github.com/ride-app/user-service/repositories/saved-location"
-	userrepository "github.com/ride-app/user-service/repositories/user"
-	"github.com/ride-app/user-service/service"
+	"github.com/ride-app/user-service/internal/utils/logger"
+	savedlocationrepository "github.com/ride-app/user-service/internal/repositories/saved-location"
+	userrepository "github.com/ride-app/user-service/internal/repositories/user"
+	"github.com/ride-app/user-service/internal/api-handlers"
 	thirdparty "github.com/ride-app/user-service/third-party"
 )
 
-func InitializeService() (*service.UserServiceServer, error) {
+func InitializeService() (*apihandlers.UserServiceServer, error) {
 	panic(
 		wire.Build(
 			logger.New,
@@ -30,7 +30,7 @@ func InitializeService() (*service.UserServiceServer, error) {
 				new(savedlocationrepository.SavedLocationRepository),
 				new(*savedlocationrepository.FirebaseImpl),
 			),
-			service.New,
+			apihandlers.New,
 		),
 	)
 }

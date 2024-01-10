@@ -1,4 +1,4 @@
-package service_test
+package apihandlers_test
 
 import (
 	"testing"
