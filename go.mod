@@ -1,6 +1,6 @@
 module github.com/ride-app/user-service
 
-go 1.21.5
+go 1.21.6
 
 require (
 	buf.build/gen/go/envoyproxy/protoc-gen-validate/protocolbuffers/go v1.32.0-20231130202533-71881f09a0c5.1
