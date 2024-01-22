@@ -10,7 +10,7 @@ import (
 	http "net/http"
 	strings "strings"
 
-	connect_go "github.com/bufbuild/connect-go"
+	connect "connectrpc.com/connect"
 	v1alpha1 "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 )
 
@@ -76,30 +76,30 @@ type UserServiceClient interface {
 //
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
-func NewUserServiceClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) UserServiceClient {
+func NewUserServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) UserServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
 	return &userServiceClient{
-		getUser: connect_go.NewClient[v1alpha1.GetUserRequest, v1alpha1.GetUserResponse](
+		getUser: connect.NewClient[v1alpha1.GetUserRequest, v1alpha1.GetUserResponse](
 			httpClient,
 			baseURL+UserServiceGetUserProcedure,
 			opts...,
 		),
-		updateUser: connect_go.NewClient[v1alpha1.UpdateUserRequest, v1alpha1.UpdateUserResponse](
+		updateUser: connect.NewClient[v1alpha1.UpdateUserRequest, v1alpha1.UpdateUserResponse](
 			httpClient,
 			baseURL+UserServiceUpdateUserProcedure,
 			opts...,
 		),
-		deleteUser: connect_go.NewClient[v1alpha1.DeleteUserRequest, v1alpha1.DeleteUserResponse](
+		deleteUser: connect.NewClient[v1alpha1.DeleteUserRequest, v1alpha1.DeleteUserResponse](
 			httpClient,
 			baseURL+UserServiceDeleteUserProcedure,
 			opts...,
 		),
-		createSavedLocation: connect_go.NewClient[v1alpha1.CreateSavedLocationRequest, v1alpha1.CreateSavedLocationResponse](
+		createSavedLocation: connect.NewClient[v1alpha1.CreateSavedLocationRequest, v1alpha1.CreateSavedLocationResponse](
 			httpClient,
 			baseURL+UserServiceCreateSavedLocationProcedure,
 			opts...,
 		),
-		listSavedLocations: connect_go.NewClient[v1alpha1.ListSavedLocationsRequest, v1alpha1.ListSavedLocationsResponse](
+		listSavedLocations: connect.NewClient[v1alpha1.ListSavedLocationsRequest, v1alpha1.ListSavedLocationsResponse](
 func (c *userServiceClient) DeleteSavedLocation(ctx context.Context, req *connect_go.Request[v1alpha1.DeleteSavedLocationRequest]) (*connect_go.Response[v1alpha1.DeleteSavedLocationResponse], error) {
 	return c.deleteSavedLocation.CallUnary(ctx, req)
 }
@@ -107,17 +107,17 @@ func (c *userServiceClient) DeleteSavedLocation(ctx context.Context, req *connec
 			baseURL+UserServiceListSavedLocationsProcedure,
 			opts...,
 		),
-		getSavedLocation: connect_go.NewClient[v1alpha1.GetSavedLocationRequest, v1alpha1.GetSavedLocationResponse](
+		getSavedLocation: connect.NewClient[v1alpha1.GetSavedLocationRequest, v1alpha1.GetSavedLocationResponse](
 			httpClient,
 			baseURL+UserServiceGetSavedLocationProcedure,
 			opts...,
 		),
-		updateSavedLocation: connect_go.NewClient[v1alpha1.UpdateSavedLocationRequest, v1alpha1.UpdateSavedLocationResponse](
+		updateSavedLocation: connect.NewClient[v1alpha1.UpdateSavedLocationRequest, v1alpha1.UpdateSavedLocationResponse](
 			httpClient,
 			baseURL+UserServiceUpdateSavedLocationProcedure,
 			opts...,
 		),
-		deleteSavedLocation: connect_go.NewClient[v1alpha1.DeleteSavedLocationRequest, v1alpha1.DeleteSavedLocationResponse](
+		deleteSavedLocation: connect.NewClient[v1alpha1.DeleteSavedLocationRequest, v1alpha1.DeleteSavedLocationResponse](
 			httpClient,
 			baseURL+UserServiceDeleteSavedLocationProcedure,
 			opts...,
