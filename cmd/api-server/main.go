@@ -44,7 +44,7 @@ func main() {
 
 	connectInterceptors := connect.WithInterceptors(authInterceptor)
 
-	path, handler := riderv1alpha1connect.NewUserServiceHandler(service, connectInterceptors)
+	path, handler := riderv1alpha1connect.NewUserServiceHandler(service, connect.WithInterceptors(authInterceptor))
 	mux := http.NewServeMux()
 	mux.Handle(path, handler)
 
