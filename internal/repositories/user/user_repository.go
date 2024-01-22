@@ -1,4 +1,4 @@
-//go:generate go run github.com/golang/mock/mockgen -destination ../../mocks/$GOFILE -package mocks . UserRepository
+//go:generate go run github.com/golang/mock/mockgen -destination ./mock/$GOFILE . UserRepository
 
 package userrepository
 

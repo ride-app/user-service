@@ -1,4 +1,4 @@
-//go:generate go run github.com/golang/mock/mockgen -destination ../../mocks/$GOFILE -package mocks . SavedLocationRepository
+//go:generate go run github.com/golang/mock/mockgen -destination ./mock/$GOFILE . SavedLocationRepository
 
 package savedlocationrepository
 
