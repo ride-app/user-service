@@ -7,7 +7,7 @@ import (
 	"github.com/MicahParks/keyfunc/v3"
 	"github.com/bufbuild/connect-go"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/ride-app/user-service/internal/utils/logger"
+	"github.com/ride-app/go/pkg/logger"
 )
 
 func NewAuthInterceptor(ctx context.Context, log logger.Logger) (*connect.UnaryInterceptorFunc, error) {

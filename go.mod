@@ -14,6 +14,7 @@ require (
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.31.1
+	github.com/ride-app/go v0.0.0-20240120170945-d4712e689141
 	go.uber.org/zap v1.26.0
 	golang.org/x/net v0.20.0
 	google.golang.org/genproto v0.0.0-20240116215550-a9fa1716bcac

@@ -4,10 +4,10 @@ package main
 
 import (
 	"github.com/google/wire"
-	"github.com/ride-app/user-service/internal/utils/logger"
+	"github.com/ride-app/go/pkg/logger"
+	apihandlers "github.com/ride-app/user-service/internal/api-handlers"
 	savedlocationrepository "github.com/ride-app/user-service/internal/repositories/saved-location"
 	userrepository "github.com/ride-app/user-service/internal/repositories/user"
-	"github.com/ride-app/user-service/internal/api-handlers"
 	thirdparty "github.com/ride-app/user-service/third-party"
 )
 

@@ -7,10 +7,10 @@ import (
 
 	"github.com/bufbuild/connect-go"
 	"github.com/ilyakaznacheev/cleanenv"
+	"github.com/ride-app/go/pkg/logger"
 	"github.com/ride-app/user-service/api/ride/rider/v1alpha1/riderv1alpha1connect"
 	"github.com/ride-app/user-service/config"
 	"github.com/ride-app/user-service/internal/api-handlers/interceptors"
-	"github.com/ride-app/user-service/internal/utils/logger"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
@@ -18,7 +18,7 @@ import (
 func main() {
 	err := cleanenv.ReadEnv(&config.Env)
 
-	log := logger.New()
+	log := logger.New(!config.Env.Production, config.Env.LogDebug)
 
 	if err != nil {
 		log.WithError(err).Fatal("Failed to read environment variables")

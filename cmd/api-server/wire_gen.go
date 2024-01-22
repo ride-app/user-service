@@ -7,10 +7,10 @@
 package main
 
 import (
+	"github.com/ride-app/go/pkg/logger"
 	"github.com/ride-app/user-service/internal/api-handlers"
 	"github.com/ride-app/user-service/internal/repositories/saved-location"
 	"github.com/ride-app/user-service/internal/repositories/user"
-	"github.com/ride-app/user-service/internal/utils/logger"
 	"github.com/ride-app/user-service/third-party"
 )
 

@@ -10,8 +10,8 @@ import (
 	time "time"
 
 	gomock "github.com/golang/mock/gomock"
+	logger "github.com/ride-app/go/pkg/logger"
 	riderv1alpha1 "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
-	logger "github.com/ride-app/user-service/internal/utils/logger"
 )
 
 // MockSavedLocationRepository is a mock of SavedLocationRepository interface.
