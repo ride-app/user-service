@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/bufbuild/connect-go"
+	"connectrpc.com/connect"
 	"github.com/ride-app/go/pkg/logger"
 	"github.com/ride-app/user-service/api/ride/rider/v1alpha1/riderv1alpha1connect"
 	"github.com/ride-app/user-service/config"
