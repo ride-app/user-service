@@ -7,7 +7,7 @@ const location = gcp.config.region || "asia-east1";
 
 const github_connection = gcp.cloudbuildv2.Connection.get(
   "github-connection",
-  pulumi.interpolate`projects/${gcp.config.project}/locations/${location}/connections/GitHub`
+  pulumi.interpolate`projects/${gcp.config.project}/locations/${location}/connections/GitHub`,
 );
 
 const repository = new gcp.cloudbuildv2.Repository("repository", {
