@@ -3,7 +3,7 @@ module github.com/ride-app/user-service
 go 1.21.6
 
 require (
-	buf.build/gen/go/envoyproxy/protoc-gen-validate/protocolbuffers/go v1.32.0-20231130202533-71881f09a0c5.1
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.32.0-20231115204500-e097f827e652.1
 	cloud.google.com/go/firestore v1.14.0
 	connectrpc.com/connect v1.14.0
 	firebase.google.com/go/v4 v4.13.0

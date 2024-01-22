@@ -8,7 +8,6 @@ import (
 	"connectrpc.com/connect"
 	interceptors "github.com/ride-app/go/pkg/connect-interceptors"
 	"github.com/ride-app/go/pkg/logger"
-	"github.com/ride-app/user-service/api/ride/rider/v1alpha1/riderv1alpha1connect"
 	"github.com/ride-app/user-service/config"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"

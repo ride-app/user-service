@@ -4,9 +4,11 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/field_mask.proto";
 import "google/type/latlng.proto";
 import "google/api/annotations.proto";
-import "validate/validate.proto";
+import "buf/validate/validate.proto";
 
 package ride.rider.v1alpha1;
+
+option go_package = "github.com/ride-app/user-service/api/ride/rider/v1alpha1";
 
 // Generated according to https://cloud.google.com/apis/design/standard_methods
 service UserService {
@@ -64,7 +66,7 @@ service UserService {
 
 message User {
   // Relative resource name of User, for example: "users/user1"
-  string name = 1 [(validate.rules).string.pattern = "^users/[A-Za-z0-9_-]+$"];
+  string name = 1 [(buf.validate.field).string.pattern = "^users/[A-Za-z0-9_-]+$"];
   
   // The User's full name.
   string display_name = 2;
@@ -73,7 +75,7 @@ message User {
   string phone_number = 3;
 
   // The User's email address.
-  optional string email = 4 [(validate.rules).string.email = true];
+  optional string email = 4 [(buf.validate.field).string.email = true];
 
   // The User's photo URL.
   string photo_url = 5;
@@ -122,7 +124,7 @@ message DeleteUserResponse {
 
 message SavedLocation {
   // Relative resource name of SavedLocation, for example: "users/user1/savedLocations/home"
-  string name = 1 [(validate.rules).string.pattern = "^users/[A-Za-z0-9_-]+/savedLocations/[A-Za-z0-9_-]+$"];
+  string name = 1 [(buf.validate.field).string.pattern = "^users/[A-Za-z0-9_-]+/savedLocations/[A-Za-z0-9_-]+$"];
 
   // The location of the SavedLocation.
   google.type.LatLng location = 2;
