@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"connectrpc.com/connect"
+	"github.com/bufbuild/protovalidate-go"
 	pb "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 )
 
@@ -13,8 +14,16 @@ func (service *UserServiceServer) GetSavedLocation(ctx context.Context,
 	req *connect.Request[pb.GetSavedLocationRequest]) (*connect.Response[pb.GetSavedLocationResponse], error) {
 	log := service.logger.WithField("method", "GetSavedLocation")
 
-	if err := req.Msg.Validate(); err != nil {
-		log.Info("Invalid request")
+	validator, err := protovalidate.New()
+	if err != nil {
+		log.WithError(err).Info("Failed to initialize validator")
+
+		return nil, connect.NewError(connect.CodeInternal, err)
+	}
+
+	if err := validator.Validate(req.Msg); err != nil {
+		log.WithError(err).Info("Invalid request")
+
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
@@ -39,15 +48,15 @@ func (service *UserServiceServer) GetSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodeNotFound, errors.New("location not found"))
 	}
 
-	res := &pb.GetSavedLocationResponse{
+	res := connect.NewResponse(&pb.GetSavedLocationResponse{
 		SavedLocation: location,
-	}
+	})
 
-	if err := res.Validate(); err != nil {
-		log.WithError(err).Error("Failed to validate response")
+	if err := validator.Validate(res.Msg); err != nil {
+		log.WithError(err).Error("Invalid response")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	log.Info("Successfully retrieved saved location")
-	return connect.NewResponse(res), nil
+	return res, nil
 }

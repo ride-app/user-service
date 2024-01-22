@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"connectrpc.com/connect"
+	"github.com/bufbuild/protovalidate-go"
 	pb "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -15,8 +16,16 @@ func (service *UserServiceServer) CreateSavedLocation(ctx context.Context,
 	req *connect.Request[pb.CreateSavedLocationRequest]) (*connect.Response[pb.CreateSavedLocationResponse], error) {
 	log := service.logger.WithField("method", "CreateSavedLocation")
 
-	if err := req.Msg.Validate(); err != nil {
-		log.Info("Invalid request")
+	validator, err := protovalidate.New()
+	if err != nil {
+		log.WithError(err).Info("Failed to initialize validator")
+
+		return nil, connect.NewError(connect.CodeInternal, err)
+	}
+
+	if err := validator.Validate(req.Msg); err != nil {
+		log.WithError(err).Info("Invalid request")
+
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
@@ -39,15 +48,15 @@ func (service *UserServiceServer) CreateSavedLocation(ctx context.Context,
 	req.Msg.SavedLocation.CreateTime = timestamppb.New(*createTime)
 	req.Msg.SavedLocation.UpdateTime = timestamppb.New(*createTime)
 
-	res := &pb.CreateSavedLocationResponse{
+	res := connect.NewResponse(&pb.CreateSavedLocationResponse{
 		SavedLocation: req.Msg.SavedLocation,
-	}
+	})
 
-	if err := res.Validate(); err != nil {
-		log.WithError(err).Error("Failed to validate response")
+	if err := validator.Validate(res.Msg); err != nil {
+		log.WithError(err).Error("Invalid response")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	log.Info("Successfully created saved location")
-	return connect.NewResponse(res), nil
+	return res, nil
 }

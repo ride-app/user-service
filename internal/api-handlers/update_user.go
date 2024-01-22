@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"connectrpc.com/connect"
+	"github.com/bufbuild/protovalidate-go"
 	pb "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -15,8 +16,16 @@ func (service *UserServiceServer) UpdateUser(ctx context.Context,
 	req *connect.Request[pb.UpdateUserRequest]) (*connect.Response[pb.UpdateUserResponse], error) {
 	log := service.logger.WithField("method", "UpdateUser")
 
-	if err := req.Msg.Validate(); err != nil {
-		log.Info("Invalid request")
+	validator, err := protovalidate.New()
+	if err != nil {
+		log.WithError(err).Info("Failed to initialize validator")
+
+		return nil, connect.NewError(connect.CodeInternal, err)
+	}
+
+	if err := validator.Validate(req.Msg); err != nil {
+		log.WithError(err).Info("Invalid request")
+
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
@@ -50,15 +59,15 @@ func (service *UserServiceServer) UpdateUser(ctx context.Context,
 
 	req.Msg.User.UpdateTime = timestamppb.New(*updateTime)
 
-	res := &pb.UpdateUserResponse{
+	res := connect.NewResponse(&pb.UpdateUserResponse{
 		User: req.Msg.User,
-	}
+	})
 
-	if err := res.Validate(); err != nil {
-		log.WithError(err).Error("Failed to validate response")
+	if err := validator.Validate(res.Msg); err != nil {
+		log.WithError(err).Error("Invalid response")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	log.Info("Successfully updated user")
-	return connect.NewResponse(res), nil
+	return res, nil
 }

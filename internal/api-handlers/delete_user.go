@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"connectrpc.com/connect"
+	"github.com/bufbuild/protovalidate-go"
 	pb "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 )
 
@@ -13,8 +14,16 @@ func (service *UserServiceServer) DeleteUser(ctx context.Context,
 	req *connect.Request[pb.DeleteUserRequest]) (*connect.Response[pb.DeleteUserResponse], error) {
 	log := service.logger.WithField("method", "DeleteUser")
 
-	if err := req.Msg.Validate(); err != nil {
-		log.Info("Invalid request")
+	validator, err := protovalidate.New()
+	if err != nil {
+		log.WithError(err).Info("Failed to initialize validator")
+
+		return nil, connect.NewError(connect.CodeInternal, err)
+	}
+
+	if err := validator.Validate(req.Msg); err != nil {
+		log.WithError(err).Info("Invalid request")
+
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
@@ -33,6 +42,13 @@ func (service *UserServiceServer) DeleteUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
+	res := connect.NewResponse(&pb.DeleteUserResponse{})
+
+	if err := validator.Validate(res.Msg); err != nil {
+		log.WithError(err).Error("Invalid response")
+		return nil, connect.NewError(connect.CodeInternal, err)
+	}
+
 	log.Info("Successfully deleted user")
-	return connect.NewResponse(&pb.DeleteUserResponse{}), nil
+	return res, nil
 }

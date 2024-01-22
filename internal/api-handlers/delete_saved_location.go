@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"connectrpc.com/connect"
+	"github.com/bufbuild/protovalidate-go"
 	pb "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 )
 
@@ -13,8 +14,16 @@ func (service *UserServiceServer) DeleteSavedLocation(ctx context.Context,
 	req *connect.Request[pb.DeleteSavedLocationRequest]) (*connect.Response[pb.DeleteSavedLocationResponse], error) {
 	log := service.logger.WithField("method", "DeleteSavedLocation")
 
-	if err := req.Msg.Validate(); err != nil {
-		log.Info("Invalid request")
+	validator, err := protovalidate.New()
+	if err != nil {
+		log.WithError(err).Info("Failed to initialize validator")
+
+		return nil, connect.NewError(connect.CodeInternal, err)
+	}
+
+	if err := validator.Validate(req.Msg); err != nil {
+		log.WithError(err).Info("Invalid request")
+
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
@@ -31,5 +40,12 @@ func (service *UserServiceServer) DeleteSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
-	return connect.NewResponse(&pb.DeleteSavedLocationResponse{}), nil
+	res := connect.NewResponse(&pb.DeleteSavedLocationResponse{})
+
+	if err := validator.Validate(res.Msg); err != nil {
+		log.WithError(err).Error("Invalid response")
+		return nil, connect.NewError(connect.CodeInternal, err)
+	}
+
+	return res, nil
 }

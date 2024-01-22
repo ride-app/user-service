@@ -8,6 +8,7 @@ import (
 	"connectrpc.com/connect"
 	interceptors "github.com/ride-app/go/pkg/connect-interceptors"
 	"github.com/ride-app/go/pkg/logger"
+	"github.com/ride-app/user-service/api/ride/rider/v1alpha1/v1alpha1connect"
 	"github.com/ride-app/user-service/config"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
@@ -43,7 +44,7 @@ func main() {
 
 	connectInterceptors := connect.WithInterceptors(authInterceptor)
 
-	path, handler := riderv1alpha1connect.NewUserServiceHandler(service, connectInterceptors)
+	path, handler := v1alpha1connect.NewUserServiceHandler(service, connectInterceptors)
 	mux := http.NewServeMux()
 	mux.Handle(path, handler)
 
