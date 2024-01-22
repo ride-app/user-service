@@ -8,6 +8,7 @@ package main
 
 import (
 	"github.com/ride-app/go/pkg/logger"
+	"github.com/ride-app/user-service/config"
 	"github.com/ride-app/user-service/internal/api-handlers"
 	"github.com/ride-app/user-service/internal/repositories/saved-location"
 	"github.com/ride-app/user-service/internal/repositories/user"
@@ -16,8 +17,8 @@ import (
 
 // Injectors from wire.go:
 
-func InitializeService(logger2 logger.Logger) (*apihandlers.UserServiceServer, error) {
-	app, err := thirdparty.NewFirebaseApp(logger2)
+func InitializeService(logger2 logger.Logger, config2 *config.Config) (*apihandlers.UserServiceServer, error) {
+	app, err := thirdparty.NewFirebaseApp(logger2, config2)
 	if err != nil {
 		return nil, err
 	}

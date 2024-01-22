@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/bufbuild/connect-go"
-	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/ride-app/go/pkg/logger"
 	"github.com/ride-app/user-service/api/ride/rider/v1alpha1/riderv1alpha1connect"
 	"github.com/ride-app/user-service/config"
@@ -16,15 +15,15 @@ import (
 )
 
 func main() {
-	err := cleanenv.ReadEnv(&config.Env)
+	config, err := config.New()
 
-	log := logger.New(!config.Env.Production, config.Env.LogDebug)
+	log := logger.New(!config.Production, config.LogDebug)
 
 	if err != nil {
 		log.WithError(err).Fatal("Failed to read environment variables")
 	}
 
-	service, err := InitializeService(log)
+	service, err := InitializeService(log, config)
 
 	if err != nil {
 		log.WithError(err).Fatal("Failed to initialize service")
@@ -50,7 +49,7 @@ func main() {
 	mux.Handle(path, handler)
 
 	panic(http.ListenAndServe(
-		fmt.Sprintf("0.0.0.0:%d", config.Env.Port),
+		fmt.Sprintf("0.0.0.0:%d", config.Port),
 		// Use h2c so we can serve HTTP/2 without TLS.
 		h2c.NewHandler(mux, &http2.Server{}),
 	))

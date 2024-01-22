@@ -5,13 +5,14 @@ package main
 import (
 	"github.com/google/wire"
 	"github.com/ride-app/go/pkg/logger"
+	"github.com/ride-app/user-service/config"
 	apihandlers "github.com/ride-app/user-service/internal/api-handlers"
 	savedlocationrepository "github.com/ride-app/user-service/internal/repositories/saved-location"
 	userrepository "github.com/ride-app/user-service/internal/repositories/user"
 	thirdparty "github.com/ride-app/user-service/third-party"
 )
 
-func InitializeService(logger logger.Logger) (*apihandlers.UserServiceServer, error) {
+func InitializeService(logger logger.Logger, config *config.Config) (*apihandlers.UserServiceServer, error) {
 	panic(
 		wire.Build(
 			thirdparty.NewFirebaseApp,

@@ -8,14 +8,13 @@ import (
 	"github.com/ride-app/user-service/config"
 )
 
-func NewFirebaseApp(log logger.Logger) (*firebase.App, error) {
+func NewFirebaseApp(log logger.Logger, config *config.Config) (*firebase.App, error) {
 	ctx := context.Background()
-	conf := &firebase.Config{ProjectID: config.Env.Firebase_Project_Id}
-	log.Info("Initializing Firebase App")
+	conf := &firebase.Config{ProjectID: config.Project_Id}
 	app, err := firebase.NewApp(ctx, conf)
 
 	if err != nil {
-		log.WithError(err).Fatal("Cannot initialize firebase app")
+		log.Fatal(err)
 		return nil, err
 	}
 
