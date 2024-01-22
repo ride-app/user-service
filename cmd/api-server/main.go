@@ -24,7 +24,7 @@ func main() {
 		log.WithError(err).Fatal("Failed to read environment variables")
 	}
 
-	service, err := InitializeService()
+	service, err := InitializeService(log)
 
 	if err != nil {
 		log.WithError(err).Fatal("Failed to initialize service")

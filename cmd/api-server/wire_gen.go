@@ -16,20 +16,19 @@ import (
 
 // Injectors from wire.go:
 
-func InitializeService() (*apihandlers.UserServiceServer, error) {
-	logrusLogger := logger.New()
-	app, err := thirdparty.NewFirebaseApp(logrusLogger)
+func InitializeService(logger2 logger.Logger) (*apihandlers.UserServiceServer, error) {
+	app, err := thirdparty.NewFirebaseApp(logger2)
 	if err != nil {
 		return nil, err
 	}
-	firebaseImpl, err := userrepository.NewFirebaseUserRepository(app, logrusLogger)
+	firebaseImpl, err := userrepository.NewFirebaseUserRepository(app, logger2)
 	if err != nil {
 		return nil, err
 	}
-	savedlocationrepositoryFirebaseImpl, err := savedlocationrepository.NewFirebaseSavedLocationRepository(app, logrusLogger)
+	savedlocationrepositoryFirebaseImpl, err := savedlocationrepository.NewFirebaseSavedLocationRepository(app, logger2)
 	if err != nil {
 		return nil, err
 	}
-	userServiceServer := apihandlers.New(firebaseImpl, savedlocationrepositoryFirebaseImpl, logrusLogger)
+	userServiceServer := apihandlers.New(firebaseImpl, savedlocationrepositoryFirebaseImpl, logger2)
 	return userServiceServer, nil
 }
