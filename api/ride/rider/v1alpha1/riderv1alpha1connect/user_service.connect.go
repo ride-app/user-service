@@ -63,10 +63,10 @@ type UserServiceClient interface {
 	UpdateUser(context.Context, *connect_go.Request[v1alpha1.UpdateUserRequest]) (*connect_go.Response[v1alpha1.UpdateUserResponse], error)
 	DeleteUser(context.Context, *connect_go.Request[v1alpha1.DeleteUserRequest]) (*connect_go.Response[v1alpha1.DeleteUserResponse], error)
 	CreateSavedLocation(context.Context, *connect_go.Request[v1alpha1.CreateSavedLocationRequest]) (*connect_go.Response[v1alpha1.CreateSavedLocationResponse], error)
-	ListSavedLocations(context.Context, *connect_go.Request[v1alpha1.ListSavedLocationsRequest]) (*connect_go.Response[v1alpha1.ListSavedLocationsResponse], error)
-	GetSavedLocation(context.Context, *connect_go.Request[v1alpha1.GetSavedLocationRequest]) (*connect_go.Response[v1alpha1.GetSavedLocationResponse], error)
-	UpdateSavedLocation(context.Context, *connect_go.Request[v1alpha1.UpdateSavedLocationRequest]) (*connect_go.Response[v1alpha1.UpdateSavedLocationResponse], error)
-	DeleteSavedLocation(context.Context, *connect_go.Request[v1alpha1.DeleteSavedLocationRequest]) (*connect_go.Response[v1alpha1.DeleteSavedLocationResponse], error)
+	ListSavedLocations(context.Context, *connect.Request[v1alpha1.ListSavedLocationsRequest]) (*connect.Response[v1alpha1.ListSavedLocationsResponse], error)
+	GetSavedLocation(context.Context, *connect.Request[v1alpha1.GetSavedLocationRequest]) (*connect.Response[v1alpha1.GetSavedLocationResponse], error)
+	UpdateSavedLocation(context.Context, *connect.Request[v1alpha1.UpdateSavedLocationRequest]) (*connect.Response[v1alpha1.UpdateSavedLocationResponse], error)
+	DeleteSavedLocation(context.Context, *connect.Request[v1alpha1.DeleteSavedLocationRequest]) (*connect.Response[v1alpha1.DeleteSavedLocationResponse], error)
 }
 
 // NewUserServiceClient constructs a client for the ride.rider.v1alpha1.UserService service. By
@@ -179,10 +179,10 @@ func (c *userServiceClient) DeleteSavedLocation(ctx context.Context, req *connec
 
 // UserServiceHandler is an implementation of the ride.rider.v1alpha1.UserService service.
 type UserServiceHandler interface {
-	GetUser(context.Context, *connect_go.Request[v1alpha1.GetUserRequest]) (*connect_go.Response[v1alpha1.GetUserResponse], error)
-	UpdateUser(context.Context, *connect_go.Request[v1alpha1.UpdateUserRequest]) (*connect_go.Response[v1alpha1.UpdateUserResponse], error)
-	DeleteUser(context.Context, *connect_go.Request[v1alpha1.DeleteUserRequest]) (*connect_go.Response[v1alpha1.DeleteUserResponse], error)
-	CreateSavedLocation(context.Context, *connect_go.Request[v1alpha1.CreateSavedLocationRequest]) (*connect_go.Response[v1alpha1.CreateSavedLocationResponse], error)
+	GetUser(context.Context, *connect.Request[v1alpha1.GetUserRequest]) (*connect.Response[v1alpha1.GetUserResponse], error)
+	UpdateUser(context.Context, *connect.Request[v1alpha1.UpdateUserRequest]) (*connect.Response[v1alpha1.UpdateUserResponse], error)
+	DeleteUser(context.Context, *connect.Request[v1alpha1.DeleteUserRequest]) (*connect.Response[v1alpha1.DeleteUserResponse], error)
+	CreateSavedLocation(context.Context, *connect.Request[v1alpha1.CreateSavedLocationRequest]) (*connect.Response[v1alpha1.CreateSavedLocationResponse], error)
 	ListSavedLocations(context.Context, *connect_go.Request[v1alpha1.ListSavedLocationsRequest]) (*connect_go.Response[v1alpha1.ListSavedLocationsResponse], error)
 	GetSavedLocation(context.Context, *connect_go.Request[v1alpha1.GetSavedLocationRequest]) (*connect_go.Response[v1alpha1.GetSavedLocationResponse], error)
 	UpdateSavedLocation(context.Context, *connect_go.Request[v1alpha1.UpdateSavedLocationRequest]) (*connect_go.Response[v1alpha1.UpdateSavedLocationResponse], error)
