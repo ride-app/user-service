@@ -2,7 +2,7 @@
 //
 // Source: ride/rider/v1alpha1/user_service.proto
 
-package riderv1alpha1connect
+package v1alpha1connect
 
 import (
 	context "context"
