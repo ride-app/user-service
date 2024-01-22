@@ -5,7 +5,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/bufbuild/connect-go"
+	"connectrpc.com/connect"
+	"github.com/bufbuild/protovalidate-go"
 	pb "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 )
 
@@ -13,8 +14,16 @@ func (service *UserServiceServer) GetUser(ctx context.Context,
 	req *connect.Request[pb.GetUserRequest]) (*connect.Response[pb.GetUserResponse], error) {
 	log := service.logger.WithField("method", "GetUser")
 
-	if err := req.Msg.Validate(); err != nil {
-		log.Info("Invalid request")
+	validator, err := protovalidate.New()
+	if err != nil {
+		log.WithError(err).Info("Failed to initialize validator")
+
+		return nil, connect.NewError(connect.CodeInternal, err)
+	}
+
+	if err := validator.Validate(req.Msg); err != nil {
+		log.WithError(err).Info("Invalid request")
+
 		return nil, connect.NewError(connect.CodeInvalidArgument, err)
 	}
 
@@ -40,15 +49,15 @@ func (service *UserServiceServer) GetUser(ctx context.Context,
 		return nil, connect.NewError(connect.CodeNotFound, errors.New("user not found"))
 	}
 
-	res := &pb.GetUserResponse{
+	res := connect.NewResponse(&pb.GetUserResponse{
 		User: user,
-	}
+	})
 
-	if err := res.Validate(); err != nil {
-		log.WithError(err).Error("Failed to validate response")
+	if err := validator.Validate(res.Msg); err != nil {
+		log.WithError(err).Error("Invalid response")
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
 
 	log.Info("Successfully retrieved user")
-	return connect.NewResponse(res), nil
+	return res, nil
 }

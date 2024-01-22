@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/bufbuild/connect-go"
+	"connectrpc.com/connect"
+	interceptors "github.com/ride-app/go/pkg/connect-interceptors"
 	"github.com/ride-app/go/pkg/logger"
-	"github.com/ride-app/user-service/api/ride/rider/v1alpha1/riderv1alpha1connect"
+	"github.com/ride-app/user-service/api/ride/rider/v1alpha1/v1alpha1connect"
 	"github.com/ride-app/user-service/config"
-	"github.com/ride-app/user-service/internal/api-handlers/interceptors"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
@@ -36,7 +36,7 @@ func main() {
 
 	defer cancel()
 
-	authInterceptor, err := interceptors.NewAuthInterceptor(ctx, log)
+	authInterceptor, err := interceptors.NewFirebaseAuthInterceptor(ctx, log)
 
 	if err != nil {
 		log.WithError(err).Fatal("Failed to initialize auth interceptor")
@@ -44,7 +44,7 @@ func main() {
 
 	connectInterceptors := connect.WithInterceptors(authInterceptor)
 
-	path, handler := riderv1alpha1connect.NewUserServiceHandler(service, connectInterceptors)
+	path, handler := v1alpha1connect.NewUserServiceHandler(service, connectInterceptors)
 	mux := http.NewServeMux()
 	mux.Handle(path, handler)
 
