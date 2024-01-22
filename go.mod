@@ -16,8 +16,8 @@ require (
 	github.com/onsi/gomega v1.31.1
 	go.uber.org/zap v1.26.0
 	golang.org/x/net v0.20.0
-	google.golang.org/genproto a9fa1716bcac
-	google.golang.org/genproto/googleapis/api a9fa1716bcac
+	google.golang.org/genproto v0.0.0-20240116215550-a9fa1716bcac
+	google.golang.org/genproto/googleapis/api v0.0.0-20240116215550-a9fa1716bcac
 	google.golang.org/protobuf v1.32.0
 )
 
@@ -29,7 +29,7 @@ require (
 	cloud.google.com/go/longrunning v0.5.4 // indirect
 	cloud.google.com/go/storage v1.36.0 // indirect
 	github.com/BurntSushi/toml v1.3.2 // indirect
-	github.com/MicahParks/jwkset v0.5.6 // indirect
+	github.com/MicahParks/jwkset v0.5.7 // indirect
 	github.com/MicahParks/keyfunc v1.9.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
