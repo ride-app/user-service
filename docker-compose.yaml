@@ -3,8 +3,6 @@ services:
   server:
     build:
       context: .
-      args:
-        BUF_USERNAME: ${BUF_USERNAME}
       secrets:
         - BUF_TOKEN
     ports:
