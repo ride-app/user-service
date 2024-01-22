@@ -100,6 +100,9 @@ func NewUserServiceClient(httpClient connect_go.HTTPClient, baseURL string, opts
 			opts...,
 		),
 		listSavedLocations: connect_go.NewClient[v1alpha1.ListSavedLocationsRequest, v1alpha1.ListSavedLocationsResponse](
+func (c *userServiceClient) DeleteSavedLocation(ctx context.Context, req *connect_go.Request[v1alpha1.DeleteSavedLocationRequest]) (*connect_go.Response[v1alpha1.DeleteSavedLocationResponse], error) {
+	return c.deleteSavedLocation.CallUnary(ctx, req)
+}
 			httpClient,
 			baseURL+UserServiceListSavedLocationsProcedure,
 			opts...,
