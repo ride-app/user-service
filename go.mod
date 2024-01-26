@@ -13,7 +13,7 @@ require (
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.31.1
-	github.com/ride-app/go v0.0.0-20240125103124-f6fd08fb3b2c
+	github.com/ride-app/go v0.0.0-20240125234728-9e3d9aaf8146
 	golang.org/x/net v0.20.0
 	google.golang.org/genproto v0.0.0-20240125205218-1f4bbc51befe
 	google.golang.org/genproto/googleapis/api v0.0.0-20240123012728-ef4313101c80
