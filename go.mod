@@ -9,7 +9,7 @@ require (
 	firebase.google.com/go/v4 v4.13.0
 	github.com/bufbuild/protovalidate-go v0.5.0
 	github.com/golang/mock v1.6.0
-	github.com/google/wire v0.5.0
+	github.com/google/wire v0.6.0
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.31.1
@@ -44,7 +44,7 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/pprof v0.0.0-20210407192527-94a9f03dee38 // indirect
 	github.com/google/s2a-go v0.1.7 // indirect
-	github.com/google/subcommands v1.0.1 // indirect
+	github.com/google/subcommands v1.2.0 // indirect
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.2 // indirect
 	github.com/googleapis/gax-go/v2 v2.12.0 // indirect
@@ -67,7 +67,7 @@ require (
 	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
-	golang.org/x/tools v0.16.1 // indirect
+	golang.org/x/tools v0.17.0 // indirect
 	google.golang.org/api v0.160.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/appengine/v2 v2.0.5 // indirect
