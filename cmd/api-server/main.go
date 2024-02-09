@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"net/http"
 
+	"connectrpc.com/authn"
 	"connectrpc.com/connect"
-	interceptors "github.com/ride-app/go/pkg/connect-interceptors"
-	"github.com/ride-app/go/pkg/logger"
+	interceptors "github.com/dragonfish-tech/go/pkg/connect/interceptors"
+	middlewares "github.com/dragonfish-tech/go/pkg/connect/middlewares"
+	"github.com/dragonfish-tech/go/pkg/logger"
 	"github.com/ride-app/user-service/api/ride/rider/v1alpha1/v1alpha1connect"
 	"github.com/ride-app/user-service/config"
 	"golang.org/x/net/http2"
@@ -36,21 +38,23 @@ func main() {
 
 	defer cancel()
 
-	authInterceptor, err := interceptors.NewFirebaseAuthInterceptor(ctx, log)
+	panicInterceptor, err := interceptors.NewPanicInterceptor(ctx)
 
 	if err != nil {
 		log.WithError(err).Fatal("Failed to initialize auth interceptor")
 	}
 
-	connectInterceptors := connect.WithInterceptors(authInterceptor)
+	connectInterceptors := connect.WithInterceptors(panicInterceptor)
 
-	path, handler := v1alpha1connect.NewUserServiceHandler(service, connectInterceptors)
 	mux := http.NewServeMux()
-	mux.Handle(path, handler)
+	mux.Handle(v1alpha1connect.NewUserServiceHandler(service, connectInterceptors))
+
+	middleware := authn.NewMiddleware(middlewares.FirebaseAuth)
+	handler := middleware.Wrap(mux)
 
 	panic(http.ListenAndServe(
 		fmt.Sprintf("0.0.0.0:%d", config.Port),
 		// Use h2c so we can serve HTTP/2 without TLS.
-		h2c.NewHandler(mux, &http2.Server{}),
+		h2c.NewHandler(handler, &http2.Server{}),
 	))
 }

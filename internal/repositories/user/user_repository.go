@@ -9,7 +9,7 @@ import (
 
 	firebase "firebase.google.com/go/v4"
 	"firebase.google.com/go/v4/auth"
-	"github.com/ride-app/go/pkg/logger"
+	"github.com/dragonfish-tech/go/pkg/logger"
 	pb "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 )
 

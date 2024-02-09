@@ -3,8 +3,8 @@
 package main
 
 import (
+	"github.com/dragonfish-tech/go/pkg/logger"
 	"github.com/google/wire"
-	"github.com/ride-app/go/pkg/logger"
 	"github.com/ride-app/user-service/config"
 	apihandlers "github.com/ride-app/user-service/internal/api-handlers"
 	savedlocationrepository "github.com/ride-app/user-service/internal/repositories/saved-location"

@@ -5,15 +5,16 @@ go 1.22.0
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.32.0-20231115204500-e097f827e652.1
 	cloud.google.com/go/firestore v1.14.0
+	connectrpc.com/authn v0.1.0
 	connectrpc.com/connect v1.14.0
 	firebase.google.com/go/v4 v4.13.0
 	github.com/bufbuild/protovalidate-go v0.5.1
+	github.com/dragonfish-tech/go v1.0.0
 	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.6.0
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.31.1
-	github.com/ride-app/go v0.0.0-20240125234728-9e3d9aaf8146
 	golang.org/x/net v0.21.0
 	google.golang.org/genproto v0.0.0-20240205150955-31a09d347014
 	google.golang.org/genproto/googleapis/api v0.0.0-20240205150955-31a09d347014
@@ -28,7 +29,7 @@ require (
 	cloud.google.com/go/longrunning v0.5.5 // indirect
 	cloud.google.com/go/storage v1.36.0 // indirect
 	github.com/BurntSushi/toml v1.3.2 // indirect
-	github.com/MicahParks/jwkset v0.5.7 // indirect
+	github.com/MicahParks/jwkset v0.5.10 // indirect
 	github.com/MicahParks/keyfunc v1.9.0 // indirect
 	github.com/MicahParks/keyfunc/v3 v3.2.4 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
