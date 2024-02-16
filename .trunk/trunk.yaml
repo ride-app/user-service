@@ -54,4 +54,4 @@ plugins:
       uri: https://github.com/trunk-io/plugins
 merge:
   required_statuses:
-    - Lint
+    - Trunk Check
