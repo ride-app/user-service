@@ -1,7 +1,7 @@
 package apihandlers
 
 import (
-	"github.com/dragonfish-tech/go/pkg/logger"
+	"github.com/dragonfish/go/pkg/logger"
 	slr "github.com/ride-app/user-service/internal/repositories/saved-location"
 	er "github.com/ride-app/user-service/internal/repositories/user"
 )

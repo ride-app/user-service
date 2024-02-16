@@ -9,7 +9,7 @@ import (
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go/v4"
-	"github.com/dragonfish-tech/go/pkg/logger"
+	"github.com/dragonfish/go/pkg/logger"
 	pb "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 
 	"google.golang.org/genproto/googleapis/type/latlng"
