@@ -25,3 +25,10 @@ jobs:
 
       - name: Build protobuf
         run: buf generate
+
+  auto_merge:
+    permissions:
+      contents: read
+      pull-requests: write
+    name: Auto Merge PR if bot
+    uses: dragonfish/workflows/.github/workflows/auto-merge.yaml@main
