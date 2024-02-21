@@ -18,7 +18,7 @@ require (
 	github.com/onsi/gomega v1.31.1
 	golang.org/x/net v0.21.0
 	google.golang.org/genproto v0.0.0-20240221002015-b0ce06bbee7c
-	google.golang.org/genproto/googleapis/api v0.0.0-20240213162025-012b6fc9bca9
+	google.golang.org/genproto/googleapis/api v0.0.0-20240221002015-b0ce06bbee7c
 	google.golang.org/protobuf v1.32.0
 )
 
