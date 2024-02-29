@@ -17,7 +17,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.31.1
 	golang.org/x/net v0.21.0
-	google.golang.org/genproto v0.0.0-20240228201840-1f18d85a4ec2
+	google.golang.org/genproto v0.0.0-20240228224816-df926f6c8641
 	google.golang.org/genproto/googleapis/api v0.0.0-20240228201840-1f18d85a4ec2
 	google.golang.org/protobuf v1.32.0
 )
