@@ -9,7 +9,7 @@ require (
 	connectrpc.com/connect v1.15.0
 	firebase.google.com/go/v4 v4.13.0
 	github.com/bufbuild/protovalidate-go v0.6.0
-	github.com/dragonfish/go/v2 v2.1.0
+	github.com/dragonfish/go v1.2.0
 	github.com/dragonfish/go/v2 v2.1.0
 	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.6.0
@@ -19,7 +19,7 @@ require (
 	golang.org/x/net v0.22.0
 	google.golang.org/genproto v0.0.0-20240304212257-790db918fca8
 	google.golang.org/genproto/googleapis/api v0.0.0-20240304212257-790db918fca8
-	google.golang.org/protobuf v1.32.0
+	google.golang.org/protobuf v1.33.0
 )
 
 require (
