@@ -4,7 +4,7 @@ cli:
 
 lint:
   enabled:
-    - renovate@37.227.1
+    - renovate@37.229.3
     - checkov@3.2.31
     - gokart@0.5.1
     - osv-scanner@1.6.2
