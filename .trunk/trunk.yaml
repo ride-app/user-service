@@ -61,4 +61,4 @@ plugins:
       uri: https://github.com/trunk-io/plugins
 merge:
   required_statuses:
-    - Trunk Check
+    - Build
