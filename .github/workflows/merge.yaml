@@ -5,10 +5,16 @@ on:
     branches:
       - trunk-merge/**
 
+permissions: read-all
+
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
-    name: Lint
+    timeout-minutes: 10
+    name: Build
+    permissions:
+      checks: write # For trunk to post annotations
+      contents: read
     steps:
       - name: Checkout Code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
@@ -17,19 +23,11 @@ jobs:
         with:
           go-version-file: go.mod
 
-      - uses: bufbuild/buf-setup-action@517ee23296d5caf38df31c21945e6a54bbc8a89f # v1.30.0
-        with:
-          github_token: ${{ github.token }}
-
-      - name: Authenticate buf
-        uses: bufbuild/buf-setup-action@517ee23296d5caf38df31c21945e6a54bbc8a89f # v1.30.0
+      - uses: bufbuild/buf-setup-action@88db93f5d74ffa329bb43e42aa95cd822697d214 # v1.29.0
         with:
           buf_user: ${{ env.BUF_USER }}
           buf_api_token: ${{ secrets.BUF_TOKEN }}
           github_token: ${{ github.token }}
 
-      - name: Build protobuf
-        run: buf generate
-
-      - name: Lint
-        uses: trunk-io/trunk-action@65228585e2c6128315f0f2d5190e2eae7f5c32c6 # v1
+      - name: Build
+        run: docker build .
