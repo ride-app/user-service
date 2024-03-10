@@ -12,7 +12,10 @@ import (
 	thirdparty "github.com/ride-app/user-service/third-party"
 )
 
-func InitializeService(logger logger.Logger, config *config.Config) (*apihandlers.UserServiceServer, error) {
+func InitializeService(
+	logger logger.Logger,
+	config *config.Config,
+) (*apihandlers.UserServiceServer, error) {
 	panic(
 		wire.Build(
 			thirdparty.NewFirebaseApp,

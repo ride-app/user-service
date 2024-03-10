@@ -11,7 +11,8 @@ import (
 )
 
 func (service *UserServiceServer) ListSavedLocations(ctx context.Context,
-	req *connect.Request[pb.ListSavedLocationsRequest]) (*connect.Response[pb.ListSavedLocationsResponse], error) {
+	req *connect.Request[pb.ListSavedLocationsRequest],
+) (*connect.Response[pb.ListSavedLocationsResponse], error) {
 	log := service.logger.WithField("method", "ListSavedLocations")
 
 	validator, err := protovalidate.New()
@@ -36,7 +37,6 @@ func (service *UserServiceServer) ListSavedLocations(ctx context.Context,
 	}
 
 	locations, err := service.savedlocationrepository.GetSavedLocations(ctx, uid, log)
-
 	if err != nil {
 		log.WithError(err).Error("Failed to get saved locations")
 		return nil, connect.NewError(connect.CodeInternal, err)

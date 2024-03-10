@@ -11,7 +11,8 @@ import (
 )
 
 func (service *UserServiceServer) DeleteSavedLocation(ctx context.Context,
-	req *connect.Request[pb.DeleteSavedLocationRequest]) (*connect.Response[pb.DeleteSavedLocationResponse], error) {
+	req *connect.Request[pb.DeleteSavedLocationRequest],
+) (*connect.Response[pb.DeleteSavedLocationResponse], error) {
 	log := service.logger.WithField("method", "DeleteSavedLocation")
 
 	validator, err := protovalidate.New()

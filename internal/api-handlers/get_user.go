@@ -11,7 +11,8 @@ import (
 )
 
 func (service *UserServiceServer) GetUser(ctx context.Context,
-	req *connect.Request[pb.GetUserRequest]) (*connect.Response[pb.GetUserResponse], error) {
+	req *connect.Request[pb.GetUserRequest],
+) (*connect.Response[pb.GetUserResponse], error) {
 	log := service.logger.WithField("method", "GetUser")
 
 	validator, err := protovalidate.New()
@@ -38,7 +39,6 @@ func (service *UserServiceServer) GetUser(ctx context.Context,
 	}
 
 	user, err := service.userRepository.GetUser(ctx, uid, log)
-
 	if err != nil {
 		log.WithError(err).Error("Failed to get user")
 		return nil, connect.NewError(connect.CodeInternal, err)

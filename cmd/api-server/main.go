@@ -25,7 +25,6 @@ func main() {
 	}
 
 	service, err := InitializeService(log, config)
-
 	if err != nil {
 		log.WithError(err).Fatal("Failed to initialize service")
 	}
@@ -33,7 +32,6 @@ func main() {
 	log.Info("Service Initialized")
 
 	panicInterceptor, err := interceptors.NewPanicInterceptor()
-
 	if err != nil {
 		log.WithError(err).Fatal("Failed to initialize auth interceptor")
 	}

@@ -13,7 +13,8 @@ import (
 )
 
 func (service *UserServiceServer) CreateSavedLocation(ctx context.Context,
-	req *connect.Request[pb.CreateSavedLocationRequest]) (*connect.Response[pb.CreateSavedLocationResponse], error) {
+	req *connect.Request[pb.CreateSavedLocationRequest],
+) (*connect.Response[pb.CreateSavedLocationResponse], error) {
 	log := service.logger.WithField("method", "CreateSavedLocation")
 
 	validator, err := protovalidate.New()
@@ -38,8 +39,11 @@ func (service *UserServiceServer) CreateSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	createTime, err := service.savedlocationrepository.CreateSavedLocation(ctx, req.Msg.SavedLocation, log)
-
+	createTime, err := service.savedlocationrepository.CreateSavedLocation(
+		ctx,
+		req.Msg.SavedLocation,
+		log,
+	)
 	if err != nil {
 		log.WithError(err).Error("Failed to create saved location")
 		return nil, connect.NewError(connect.CodeInternal, err)

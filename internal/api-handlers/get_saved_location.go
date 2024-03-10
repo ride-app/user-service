@@ -11,7 +11,8 @@ import (
 )
 
 func (service *UserServiceServer) GetSavedLocation(ctx context.Context,
-	req *connect.Request[pb.GetSavedLocationRequest]) (*connect.Response[pb.GetSavedLocationResponse], error) {
+	req *connect.Request[pb.GetSavedLocationRequest],
+) (*connect.Response[pb.GetSavedLocationResponse], error) {
 	log := service.logger.WithField("method", "GetSavedLocation")
 
 	validator, err := protovalidate.New()
@@ -36,8 +37,12 @@ func (service *UserServiceServer) GetSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	location, err := service.savedlocationrepository.GetSavedLocation(ctx, uid, strings.Split(req.Msg.Name, "/")[3], log)
-
+	location, err := service.savedlocationrepository.GetSavedLocation(
+		ctx,
+		uid,
+		strings.Split(req.Msg.Name, "/")[3],
+		log,
+	)
 	if err != nil {
 		log.WithError(err).Error("Failed to get saved location")
 		return nil, connect.NewError(connect.CodeInternal, err)

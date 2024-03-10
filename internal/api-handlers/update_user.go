@@ -13,7 +13,8 @@ import (
 )
 
 func (service *UserServiceServer) UpdateUser(ctx context.Context,
-	req *connect.Request[pb.UpdateUserRequest]) (*connect.Response[pb.UpdateUserResponse], error) {
+	req *connect.Request[pb.UpdateUserRequest],
+) (*connect.Response[pb.UpdateUserResponse], error) {
 	log := service.logger.WithField("method", "UpdateUser")
 
 	validator, err := protovalidate.New()
@@ -39,7 +40,6 @@ func (service *UserServiceServer) UpdateUser(ctx context.Context,
 	}
 
 	user, err := service.userRepository.GetUser(ctx, uid, log)
-
 	if err != nil {
 		log.WithError(err).Error("Failed to get user")
 		return nil, connect.NewError(connect.CodeInternal, err)
@@ -51,7 +51,6 @@ func (service *UserServiceServer) UpdateUser(ctx context.Context,
 	}
 
 	updateTime, err := service.userRepository.UpdateUser(ctx, req.Msg.User, log)
-
 	if err != nil {
 		log.WithError(err).Error("Failed to update user")
 		return nil, connect.NewError(connect.CodeInternal, err)

@@ -1246,30 +1246,33 @@ func file_ride_rider_v1alpha1_user_service_proto_rawDescGZIP() []byte {
 	return file_ride_rider_v1alpha1_user_service_proto_rawDescData
 }
 
-var file_ride_rider_v1alpha1_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
-var file_ride_rider_v1alpha1_user_service_proto_goTypes = []interface{}{
-	(*User)(nil),                        // 0: ride.rider.v1alpha1.User
-	(*GetUserRequest)(nil),              // 1: ride.rider.v1alpha1.GetUserRequest
-	(*GetUserResponse)(nil),             // 2: ride.rider.v1alpha1.GetUserResponse
-	(*UpdateUserRequest)(nil),           // 3: ride.rider.v1alpha1.UpdateUserRequest
-	(*UpdateUserResponse)(nil),          // 4: ride.rider.v1alpha1.UpdateUserResponse
-	(*DeleteUserRequest)(nil),           // 5: ride.rider.v1alpha1.DeleteUserRequest
-	(*DeleteUserResponse)(nil),          // 6: ride.rider.v1alpha1.DeleteUserResponse
-	(*SavedLocation)(nil),               // 7: ride.rider.v1alpha1.SavedLocation
-	(*CreateSavedLocationRequest)(nil),  // 8: ride.rider.v1alpha1.CreateSavedLocationRequest
-	(*CreateSavedLocationResponse)(nil), // 9: ride.rider.v1alpha1.CreateSavedLocationResponse
-	(*ListSavedLocationsRequest)(nil),   // 10: ride.rider.v1alpha1.ListSavedLocationsRequest
-	(*ListSavedLocationsResponse)(nil),  // 11: ride.rider.v1alpha1.ListSavedLocationsResponse
-	(*GetSavedLocationRequest)(nil),     // 12: ride.rider.v1alpha1.GetSavedLocationRequest
-	(*GetSavedLocationResponse)(nil),    // 13: ride.rider.v1alpha1.GetSavedLocationResponse
-	(*UpdateSavedLocationRequest)(nil),  // 14: ride.rider.v1alpha1.UpdateSavedLocationRequest
-	(*UpdateSavedLocationResponse)(nil), // 15: ride.rider.v1alpha1.UpdateSavedLocationResponse
-	(*DeleteSavedLocationRequest)(nil),  // 16: ride.rider.v1alpha1.DeleteSavedLocationRequest
-	(*DeleteSavedLocationResponse)(nil), // 17: ride.rider.v1alpha1.DeleteSavedLocationResponse
-	(*timestamppb.Timestamp)(nil),       // 18: google.protobuf.Timestamp
-	(*fieldmaskpb.FieldMask)(nil),       // 19: google.protobuf.FieldMask
-	(*latlng.LatLng)(nil),               // 20: google.type.LatLng
-}
+var (
+	file_ride_rider_v1alpha1_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+	file_ride_rider_v1alpha1_user_service_proto_goTypes  = []interface{}{
+		(*User)(nil),                        // 0: ride.rider.v1alpha1.User
+		(*GetUserRequest)(nil),              // 1: ride.rider.v1alpha1.GetUserRequest
+		(*GetUserResponse)(nil),             // 2: ride.rider.v1alpha1.GetUserResponse
+		(*UpdateUserRequest)(nil),           // 3: ride.rider.v1alpha1.UpdateUserRequest
+		(*UpdateUserResponse)(nil),          // 4: ride.rider.v1alpha1.UpdateUserResponse
+		(*DeleteUserRequest)(nil),           // 5: ride.rider.v1alpha1.DeleteUserRequest
+		(*DeleteUserResponse)(nil),          // 6: ride.rider.v1alpha1.DeleteUserResponse
+		(*SavedLocation)(nil),               // 7: ride.rider.v1alpha1.SavedLocation
+		(*CreateSavedLocationRequest)(nil),  // 8: ride.rider.v1alpha1.CreateSavedLocationRequest
+		(*CreateSavedLocationResponse)(nil), // 9: ride.rider.v1alpha1.CreateSavedLocationResponse
+		(*ListSavedLocationsRequest)(nil),   // 10: ride.rider.v1alpha1.ListSavedLocationsRequest
+		(*ListSavedLocationsResponse)(nil),  // 11: ride.rider.v1alpha1.ListSavedLocationsResponse
+		(*GetSavedLocationRequest)(nil),     // 12: ride.rider.v1alpha1.GetSavedLocationRequest
+		(*GetSavedLocationResponse)(nil),    // 13: ride.rider.v1alpha1.GetSavedLocationResponse
+		(*UpdateSavedLocationRequest)(nil),  // 14: ride.rider.v1alpha1.UpdateSavedLocationRequest
+		(*UpdateSavedLocationResponse)(nil), // 15: ride.rider.v1alpha1.UpdateSavedLocationResponse
+		(*DeleteSavedLocationRequest)(nil),  // 16: ride.rider.v1alpha1.DeleteSavedLocationRequest
+		(*DeleteSavedLocationResponse)(nil), // 17: ride.rider.v1alpha1.DeleteSavedLocationResponse
+		(*timestamppb.Timestamp)(nil),       // 18: google.protobuf.Timestamp
+		(*fieldmaskpb.FieldMask)(nil),       // 19: google.protobuf.FieldMask
+		(*latlng.LatLng)(nil),               // 20: google.type.LatLng
+	}
+)
+
 var file_ride_rider_v1alpha1_user_service_proto_depIdxs = []int32{
 	18, // 0: ride.rider.v1alpha1.User.create_time:type_name -> google.protobuf.Timestamp
 	18, // 1: ride.rider.v1alpha1.User.update_time:type_name -> google.protobuf.Timestamp

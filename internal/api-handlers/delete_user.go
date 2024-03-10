@@ -11,7 +11,8 @@ import (
 )
 
 func (service *UserServiceServer) DeleteUser(ctx context.Context,
-	req *connect.Request[pb.DeleteUserRequest]) (*connect.Response[pb.DeleteUserResponse], error) {
+	req *connect.Request[pb.DeleteUserRequest],
+) (*connect.Response[pb.DeleteUserResponse], error) {
 	log := service.logger.WithField("method", "DeleteUser")
 
 	validator, err := protovalidate.New()

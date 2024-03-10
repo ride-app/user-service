@@ -13,7 +13,8 @@ import (
 )
 
 func (service *UserServiceServer) UpdateSavedLocation(ctx context.Context,
-	req *connect.Request[pb.UpdateSavedLocationRequest]) (*connect.Response[pb.UpdateSavedLocationResponse], error) {
+	req *connect.Request[pb.UpdateSavedLocationRequest],
+) (*connect.Response[pb.UpdateSavedLocationResponse], error) {
 	log := service.logger.WithField("method", "UpdateSavedLocation")
 
 	validator, err := protovalidate.New()
@@ -37,8 +38,12 @@ func (service *UserServiceServer) UpdateSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodePermissionDenied, errors.New("permission denied"))
 	}
 
-	user, err := service.savedlocationrepository.GetSavedLocation(ctx, uid, strings.Split(req.Msg.SavedLocation.Name, "/")[3], log)
-
+	user, err := service.savedlocationrepository.GetSavedLocation(
+		ctx,
+		uid,
+		strings.Split(req.Msg.SavedLocation.Name, "/")[3],
+		log,
+	)
 	if err != nil {
 		log.WithError(err).Error("Failed to get saved location")
 		return nil, connect.NewError(connect.CodeInternal, err)
@@ -49,8 +54,11 @@ func (service *UserServiceServer) UpdateSavedLocation(ctx context.Context,
 		return nil, connect.NewError(connect.CodeNotFound, errors.New("location not found"))
 	}
 
-	updateTime, err := service.savedlocationrepository.UpdateSavedLocation(ctx, req.Msg.SavedLocation, log)
-
+	updateTime, err := service.savedlocationrepository.UpdateSavedLocation(
+		ctx,
+		req.Msg.SavedLocation,
+		log,
+	)
 	if err != nil {
 		log.WithError(err).Error("Failed to update saved location")
 		return nil, connect.NewError(connect.CodeInternal, err)

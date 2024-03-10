@@ -12,7 +12,6 @@ func NewFirebaseApp(log logger.Logger, config *config.Config) (*firebase.App, er
 	ctx := context.Background()
 	conf := &firebase.Config{ProjectID: config.Project_Id}
 	app, err := firebase.NewApp(ctx, conf)
-
 	if err != nil {
 		log.Fatal(err)
 		return nil, err
