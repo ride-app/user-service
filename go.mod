@@ -17,7 +17,7 @@ require (
 	github.com/onsi/gomega v1.31.1
 	golang.org/x/net v0.22.0
 	google.golang.org/genproto v0.0.0-20240308144416-29370a3891b7
-	google.golang.org/genproto/googleapis/api v0.0.0-20240308144416-29370a3891b7
+	google.golang.org/genproto/googleapis/api v0.0.0-20240311173647-c811ad7063a7
 	google.golang.org/protobuf v1.33.0
 )
 
@@ -72,8 +72,8 @@ require (
 	google.golang.org/api v0.167.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/appengine/v2 v2.0.5 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240304161311-37d4d3c04a78 // indirect
-	google.golang.org/grpc v1.62.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20240311132316-a219d84964c2 // indirect
+	google.golang.org/grpc v1.62.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	olympos.io/encoding/edn v0.0.0-20201019073823-d3554ca0b0a3 // indirect
 )
