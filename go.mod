@@ -14,7 +14,7 @@ require (
 	github.com/google/wire v0.6.0
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/onsi/ginkgo/v2 v2.16.0
-	github.com/onsi/gomega v1.31.1
+	github.com/onsi/gomega v1.32.0
 	golang.org/x/net v0.22.0
 	google.golang.org/genproto v0.0.0-20240318140521-94a12d6c2237
 	google.golang.org/genproto/googleapis/api v0.0.0-20240318140521-94a12d6c2237
