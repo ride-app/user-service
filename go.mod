@@ -6,7 +6,7 @@ require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.1-20240508200655-46a4cf4ba109.1
 	cloud.google.com/go/firestore v1.15.0
 	connectrpc.com/authn v0.1.0
-	connectrpc.com/connect v1.16.1
+	connectrpc.com/connect v1.16.2
 	firebase.google.com/go/v4 v4.14.0
 	github.com/bufbuild/protovalidate-go v0.6.2
 	github.com/dragonfish/go/v2 v2.1.0
