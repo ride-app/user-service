@@ -1,4 +1,5 @@
 name: Buf push
+permissions: read-all
 
 on:
   push:
@@ -9,16 +10,7 @@ on:
 
 jobs:
   buf-push:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
-
-      - uses: bufbuild/buf-setup-action@aceb106d2419c4cff48863df90161d92decb8591 # v1.35.1
-        with:
-          github_token: ${{ github.token }}
-
-      - uses: bufbuild/buf-push-action@v1
-        with:
-          buf_token: ${{ secrets.BUF_TOKEN }}
-          input: api/proto
+    uses: dragonfish/workflows/.github/workflows/buf-push.yaml@main
+    with:
+      buf-mod-dir: api
+    secrets: inherit

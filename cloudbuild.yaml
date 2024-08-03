@@ -2,29 +2,61 @@ substitutions:
   _SERVICE_NAME: user-service
 
 steps:
-  # Step 1: Generate from Protobuf
-  - name: bufbuild/buf@sha256:9bd6ac0c1af65bb16002ab9c3b2050828c2c1337774ac5fba7d9fd3b98abed71
-    args:
-      - generate
-
-  # Step 2: Build a Docker image
-  - name: gcr.io/cloud-builders/docker@sha256:45c04c058d8ad9f639a0b8c5a26e5f43afd95008e613c3aad6f929c716eeea6a
+  # Step 1: Build Docker image
+  - name: gcr.io/cloud-builders/docker@sha256:367b243ad863186e076637bf7c3538364538b9e78814f7244da7df8a8788d9bc
+    id: build
     args:
       - build
       - -t
-      - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$COMMIT_SHA
-      - -t
-      - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$BRANCH_NAME
+      - api-server:latest
       - .
+      - --cache-from
+      - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$BRANCH_NAME
 
-  # Step 3: Push a Docker image
-  - name: gcr.io/cloud-builders/docker@sha256:45c04c058d8ad9f639a0b8c5a26e5f43afd95008e613c3aad6f929c716eeea6a
+  # Step 2: Tag image with COMMIT_SHA
+  - name: gcr.io/cloud-builders/docker@sha256:367b243ad863186e076637bf7c3538364538b9e78814f7244da7df8a8788d9bc
+    id: tag-sha
+    waitFor:
+      - build
+    args:
+      - tag
+      - api-server:latest
+      - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$COMMIT_SHA
+
+  # Step 3: Tag image with BRANCH_NAME
+  - name: gcr.io/cloud-builders/docker@sha256:367b243ad863186e076637bf7c3538364538b9e78814f7244da7df8a8788d9bc
+    id: tag-branch
+    waitFor:
+      - build
+    args:
+      - tag
+      - api-server:latest
+      - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$BRANCH_NAME
+
+  # Step 4: Tag image as latest
+  - name: gcr.io/cloud-builders/docker@sha256:367b243ad863186e076637bf7c3538364538b9e78814f7244da7df8a8788d9bc
+    id: tag-latest
+    waitFor:
+      - build
+    args:
+      - tag
+      - api-server:latest
+      - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:latest
+
+  # Step 5: Push Docker image
+  - name: gcr.io/cloud-builders/docker@sha256:367b243ad863186e076637bf7c3538364538b9e78814f7244da7df8a8788d9bc
+    id: push
+    waitFor:
+      - tag-sha
     args:
       - push
       - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$COMMIT_SHA
 
-  # Step 4: Push the new Cloud Run revision
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk@sha256:48d13f032d8acf5a6f96c519fc1c868945eeb89ed2424eedfff77c444867ab97
+  # Step 6: Deploy to Cloud Run
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk@sha256:04693d745dcaf6a4da7cece39e5bb23d2e7dc3f25c01d40544e038690cd4e2e2
+    id: deploy
+    waitFor:
+      - push
     entrypoint: gcloud
     args:
       - run
@@ -34,7 +66,7 @@ steps:
       - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$COMMIT_SHA
       - --region=asia-south2
       - --allow-unauthenticated
-      - --set-env-vars=FIREBASE_PROJECT_ID=$PROJECT_ID,LOG_DEBUG=$_LOG_DEBUG
+      - --set-env-vars=PROJECT_ID=$PROJECT_ID,LOG_DEBUG=$_LOG_DEBUG
       - --max-instances=10
       - --port=50051
       - --use-http2
@@ -42,3 +74,4 @@ steps:
 images:
   - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$COMMIT_SHA
   - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$BRANCH_NAME
+  - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:latest

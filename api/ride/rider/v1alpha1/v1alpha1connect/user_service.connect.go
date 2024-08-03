@@ -11,6 +11,7 @@ import (
 	strings "strings"
 
 	connect "connectrpc.com/connect"
+
 	v1alpha1 "github.com/ride-app/user-service/api/ride/rider/v1alpha1"
 )
 

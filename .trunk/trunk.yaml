@@ -1,6 +1,34 @@
 version: 0.1
+
 cli:
   version: 1.22.2
+  shell_hooks:
+    enforce: true
+
+actions:
+  enabled:
+    - buf-mod-update
+    - generate-di
+    - unit-test
+
+  definitions:
+    - id: generate-di
+      triggers:
+        - files: ["**/wire.go"]
+      run: go run github.com/google/wire/cmd/wire
+      run_from: cmd/api-server
+
+    - id: buf-mod-update
+      triggers:
+        - files: [buf.yaml]
+      run: buf mod update
+
+    - id: unit-test
+      run:
+        go run github.com/onsi/ginkgo/v2/ginkgo -r --procs=4 --compilers=4 --randomize-all
+        --randomize-suites --fail-on-pending --keep-going --cover --race --trace --timeout=10m
+        -ldflags "-X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=warn"
+        -tags=unit_tests
 
 lint:
   disabled:
@@ -9,12 +37,9 @@ lint:
   ignore:
     - linters: [ALL]
       paths:
+        - tools
         - "**/node_modules/**"
         - "**/pnpm-lock.yaml"
-
-    - linters: [golangci-lint]
-      paths:
-        - internal/utils/tools
 
     - linters: [goimports]
       paths:
