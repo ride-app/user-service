@@ -53,7 +53,7 @@ steps:
       - asia-south2-docker.pkg.dev/$PROJECT_ID/docker-registry/$_SERVICE_NAME:$COMMIT_SHA
 
   # Step 6: Deploy to Cloud Run
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk@sha256:cde93145c4ea0d91aab6b5b1849800410ae9e2f458913cf001b1f41400b21538
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk@sha256:56c49f1ef28588a4cd727ea1560f1eafb8366bd9d028ccdfdb8f274c63721419
     id: deploy
     waitFor:
       - push
