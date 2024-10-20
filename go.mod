@@ -8,7 +8,7 @@ require (
 	connectrpc.com/authn v0.1.0
 	connectrpc.com/connect v1.17.0
 	firebase.google.com/go/v4 v4.14.1
-	github.com/bufbuild/protovalidate-go v0.7.1
+	github.com/bufbuild/protovalidate-go v0.7.2
 	github.com/dragonfish/go/v2 v2.1.0
 	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.6.0
